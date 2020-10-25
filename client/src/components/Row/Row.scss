@@ -1,0 +1,42 @@
+.row {
+    width: 100%;
+    object-fit: contain;
+    padding: 0 2rem;
+
+    &_title {
+        color: #eee;
+        font-size: 2rem;
+    }
+
+    &_postersContainer {
+        display: flex;
+        overflow-y: hidden;
+        overflow-x: scroll;
+        padding: 1rem 0;
+        cursor: pointer;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        &_image {
+            object-fit: contain;
+            width: 100%;
+            max-height: 110px;
+            transition: transform 0.4s;
+            margin-right: 0.5rem;
+
+            &:hover {
+                transform: scale(1.08);
+            }
+
+            &.largeRow {
+                max-height: 300px;
+
+                &:hover {
+                    transform: scale(1.09);
+                }
+            }
+        }
+    }
+}

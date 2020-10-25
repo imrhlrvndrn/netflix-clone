@@ -1,0 +1,56 @@
+.banner {
+    color: white;
+    object-fit: contain;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+    background-attachment: fixed;
+
+    .fadeBottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 7rem;
+        width: 100%;
+        background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.61), #000);
+    }
+
+    &_content {
+        max-width: 40%;
+        * {
+            color: white;
+        }
+
+        &_title {
+            font-weight: 800;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        &_ctaContainer {
+            display: flex;
+
+            &_cta {
+                background-color: rgba(51, 51, 51, 0.5);
+                display: block;
+                color: white;
+                border-radius: 5px;
+                margin-right: 1rem;
+                padding: 0.5rem 2rem;
+                width: max-content;
+
+                &:hover {
+                    color: black;
+                    background-color: #e6e6e6;
+                    transition: all 0.4s;
+                }
+            }
+        }
+
+        &_description {
+            margin-top: 1rem;
+        }
+    }
+}
