@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { gsap } from 'gsap';
 import axios from '../../axios';
 
 // scss files
@@ -7,6 +8,7 @@ import './Row.scss';
 const Row = ({ title, fetchUrl, largeRow }) => {
     const baseImageUrl = 'https://image.tmdb.org/t/p/original/';
     const [movies, setMovies] = useState([]);
+    const mountAnimation = gsap.timeline({ paused: true, reversed: true });
 
     useEffect(() => {
         const fetchData = async () => {

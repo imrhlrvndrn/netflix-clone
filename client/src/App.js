@@ -7,10 +7,12 @@ import './GlobalStyles.scss';
 
 // React components
 import Banner from './components/Banner/Banner';
+import Nav from './components/Nav/Nav';
 
 const App = () => {
     return (
         <div>
+            <Nav />
             <Banner />
             <Row
                 largeRow={true}
