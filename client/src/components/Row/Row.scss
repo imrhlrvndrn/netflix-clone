@@ -1,11 +1,20 @@
+@import '../../mixin.scss';
+
 .row {
+    margin-top: 1rem;
     width: 100%;
     object-fit: contain;
-    padding: 0 2rem;
+    padding: 0 1rem;
+    @include sm-tablet {
+        padding: 0 2rem;
+    }
 
     &_title {
         color: #eee;
-        font-size: 2rem;
+        font-size: 1.2rem;
+        @include sm-tablet {
+            font-size: 2rem;
+        }
     }
 
     &_postersContainer {
@@ -22,20 +31,15 @@
         &_image {
             object-fit: contain;
             width: 100%;
-            max-height: 110px;
+            max-height: 200px;
+            margin-right: 1rem;
             transition: transform 0.4s;
-            margin-right: 0.5rem;
+            @include phone {
+                max-height: 300px;
+            }
 
             &:hover {
                 transform: scale(1.08);
-            }
-
-            &.largeRow {
-                max-height: 300px;
-
-                &:hover {
-                    transform: scale(1.09);
-                }
             }
         }
     }

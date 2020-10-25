@@ -1,21 +1,33 @@
+@import '../../mixin.scss';
+
 .nav {
     position: fixed;
+    width: 100%;
     top: 0;
     left: 0;
     display: flex;
     justify-content: space-between;
     height: 80px;
+    z-index: 1;
 
     &_logo {
+        margin-left: 1rem;
         width: 80px;
         object-fit: contain;
         height: auto;
+        @include sm-tablet {
+            margin-left: 2rem;
+        }
     }
 
     &_avatar {
+        margin-right: 1rem;
         width: 30px;
         object-fit: contain;
         height: auto;
+        @include sm-tablet {
+            margin-right: 2rem;
+        }
     }
 
     &.darkBackground {
