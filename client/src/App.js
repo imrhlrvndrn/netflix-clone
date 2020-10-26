@@ -1,36 +1,37 @@
-import React, { useState } from 'react';
-import Row from './components/Row/Row';
-import requests from './requests';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // scss files
 import './GlobalStyles.scss';
 
 // React components
-import Banner from './components/Banner/Banner';
 import Nav from './components/Nav/Nav';
-import ErrorHandler from './components/ErrorHandler/ErrorHandler';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import DetailedPage from './pages/DetailedPage/DetailedPage';
 
 const App = () => {
-    const [error, setError] = useState('');
+    // useEffect(() => {
+    //     auth.onAuthStateChanged((authUser) => {
+    //         console.log('User is: ', authUser);
+    //         if (authUser) {
+    //             dispatch({ type: 'SET_USER', user: authUser });
+    //         } else {
+    //             dispatch({ type: 'SET_USER', user: null });
+    //             history.push('/login');
+    //         }
+    //     });
+    // }, []);
 
     return (
-        <div>
+        <Router>
             <Nav />
-            <Banner />
-            <Row setError={setError} fetchUrl={requests.fetchNetflixOriginals} />
-            <Row setError={setError} title='Trending now' fetchUrl={requests.fetchTrending} />
-            <Row setError={setError} title='Top rated' fetchUrl={requests.fetchTopRated} />
-            <Row setError={setError} title='Action Movies' fetchUrl={requests.fetchActionMovies} />
-            <Row setError={setError} title='Comedy Movies' fetchUrl={requests.fetchComedyMovies} />
-            <Row setError={setError} title='Horror Movies' fetchUrl={requests.fetchHorrorMovies} />
-            <Row
-                setError={setError}
-                title='Romance Movies'
-                fetchUrl={requests.fetchRomanceMovies}
-            />
-            <Row setError={setError} title='Documentaries' fetchUrl={requests.fetchDocumentaries} />
-            {error && <ErrorHandler setError={setError} movie_name={error} />}
-        </div>
+            <Switch>
+                <Route exact path='/' render={() => <Home />} />
+                <Route exact path='/login' render={() => <Login />} />
+                <Route exact path='/:mediaType/:mediaId' component={DetailedPage} />
+            </Switch>
+        </Router>
     );
 };
 

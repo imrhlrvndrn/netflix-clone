@@ -8,9 +8,9 @@
     display: flex;
     justify-content: space-between;
     height: 80px;
-    z-index: 1;
+    z-index: 1000;
 
-    &_logo {
+    a {
         margin-left: 1rem;
         width: 80px;
         object-fit: contain;
@@ -22,7 +22,7 @@
 
     &_avatar {
         margin-right: 1rem;
-        width: 30px;
+        width: 40px;
         object-fit: contain;
         height: auto;
         @include sm-tablet {

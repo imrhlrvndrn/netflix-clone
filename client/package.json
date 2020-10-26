@@ -5,7 +5,9 @@
   "dependencies": {
     "axios": "^0.21.0",
     "cra-template": "1.1.0",
+    "firebase": "^7.24.0",
     "gsap": "^3.5.1",
+    "moment": "^2.29.1",
     "movie-trailer": "^2.0.6",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",

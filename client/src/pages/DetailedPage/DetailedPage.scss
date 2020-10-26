@@ -1,0 +1,229 @@
+@import '../../mixin.scss';
+
+.detailedPage {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    min-height: 100vh;
+
+    &_banner {
+        position: relative;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        background-position: center center;
+        width: 100%;
+        height: 60vh;
+        padding: 0 2rem 0 2rem;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        @include sm-tablet {
+            padding: 0 6rem 2rem 6rem;
+        }
+        @include tablet {
+            height: 100vh;
+        }
+
+        .fadeElement {
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.61), #000);
+        }
+
+        &_content {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            position: absolute;
+            @include sm-tablet {
+                flex-direction: row;
+                position: relative;
+                bottom: 0;
+                left: 0;
+                transform: translate(0, 0);
+            }
+
+            &_posterimage {
+                width: 300px;
+                height: 450px;
+                border-radius: 10px;
+                object-fit: contain;
+                margin-right: 2rem;
+            }
+
+            &_details {
+                * {
+                    margin-bottom: 1rem;
+                    color: white;
+                }
+
+                h1 {
+                    font-size: 1.2rem;
+                    font-weight: 800;
+                    display: flex;
+                    align-items: center;
+                    @include sm-tablet {
+                        font-size: 2rem;
+                    }
+
+                    .runtime {
+                        margin: 0 0 0 1rem;
+                        display: inline-block;
+                        border-radius: 5px;
+                        width: max-content;
+                        padding: 0.5rem 2rem;
+                        background-color: rgba(0, 0, 0, 0.4);
+                        &:hover {
+                            transition: 0.4s ease-in-out;
+                            background-color: white;
+                            color: black;
+                        }
+                    }
+
+                    span.adult {
+                        margin-left: 1rem;
+                        padding: 0.5rem;
+                        background-color: $netflix-red;
+                        border-radius: 5px;
+                    }
+                }
+
+                .genre_container {
+                    display: flex;
+
+                    .genre {
+                        font-size: 0.8rem;
+                        text-transform: uppercase;
+                        padding: 0.5rem 2rem;
+                        border-radius: 5px;
+                        background-color: rgba(0, 0, 0, 0.4);
+                        color: white;
+                        margin-right: 1rem;
+                        &:hover {
+                            transition: 0.4s ease-in-out;
+                            background-color: white;
+                            color: black;
+                        }
+                    }
+                }
+
+                .overview_text {
+                    width: 70%;
+                }
+
+                .creators {
+                    h2 {
+                        font-size: 1.2rem;
+                        font-weight: 800;
+                    }
+                    .creators_container {
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        .creator {
+                            width: max-content;
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            margin-right: 1rem;
+                            background: white;
+                            padding: 0.5rem 2rem;
+                            border-radius: 30px;
+
+                            img {
+                                margin: 0;
+                                margin-right: 1rem;
+                                width: 30px;
+                                height: 30px;
+                                object-fit: contain;
+                            }
+
+                            p {
+                                margin: 0;
+                                color: black;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &_mediaInfo {
+        width: 100%;
+        height: auto;
+        padding: 4rem 6rem;
+        min-height: max-content;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column-reverse;
+        @include tablet {
+            min-height: 100vh;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        &_left {
+            width: 100%;
+            @include tablet {
+                width: 70%;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            &_seasons {
+                width: 100%;
+                margin-top: 2rem;
+                display: flex;
+                align-items: center;
+                overflow-x: auto;
+
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+
+                .season {
+                    width: 200px;
+                    height: auto;
+                    position: relative;
+                    display: flex;
+                    // flex-wrap: wrap;
+                    margin: 0 4rem 4rem 0;
+                    flex-direction: column;
+                    transition: 1s ease-in-out;
+
+                    img {
+                        margin-bottom: 1rem;
+                        width: 200px;
+                        border-radius: 10px;
+                        object-fit: cover;
+                        height: 250px;
+                    }
+
+                    .seasonInfo {
+                        width: max-content;
+                        position: absolute;
+                        bottom: -20%;
+                        left: 10%;
+                        padding: 1rem 3rem;
+                        border-radius: 10px;
+                        background-color: $netflix-red;
+                        transform: translate(0, -50%);
+                    }
+                }
+            }
+        }
+
+        &_right {
+            width: 30%;
+            height: 100px;
+        }
+    }
+}

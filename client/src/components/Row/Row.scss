@@ -22,14 +22,13 @@
         overflow-y: hidden;
         overflow-x: scroll;
         padding: 1rem 0;
-        cursor: pointer;
 
         &::-webkit-scrollbar {
             display: none;
         }
 
         &_image {
-            object-fit: contain;
+            cursor: pointer;
             width: 100%;
             max-height: 200px;
             margin-right: 1rem;
@@ -37,8 +36,20 @@
             @include phone {
                 max-height: 300px;
             }
+            transition: 0.4s ease-in-out;
+
+            img {
+                width: 100px;
+                height: 200px;
+                object-fit: contain;
+                @include sm-tablet {
+                    width: 200px;
+                    height: 300px;
+                }
+            }
 
             &:hover {
+                padding: 0 4rem;
                 transform: scale(1.08);
             }
         }

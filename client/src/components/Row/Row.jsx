@@ -5,12 +5,15 @@ import movieTrailer from 'movie-trailer';
 
 // scss files
 import './Row.scss';
+import { useDataLayerValue } from '../../DataLayer';
+import { Link } from 'react-router-dom';
 
 // React components
 
 const Row = ({ title, fetchUrl, setError }) => {
     const baseImageUrl = 'https://image.tmdb.org/t/p/original/';
-    const [movies, setMovies] = useState([]);
+    // const [{}, dispatch] = useDataLayerValue();
+    const [movies, setMovies] = useState('');
     const [trailerUrl, setTrailerUrl] = useState('');
     const opts = {
         height: '500px',
@@ -21,7 +24,7 @@ const Row = ({ title, fetchUrl, setError }) => {
     useEffect(() => {
         const fetchData = async () => {
             const req = await axios.get(fetchUrl);
-            setMovies(req.data.results);
+            setMovies(req.data);
             return req;
         };
 
@@ -47,18 +50,26 @@ const Row = ({ title, fetchUrl, setError }) => {
 
     return (
         <>
-            {movies?.length && (
+            {movies.results?.length && (
                 <div className='row'>
                     {title && <h1 className='row_title'>{title}</h1>}
                     <div className='row_postersContainer'>
-                        {movies.map((movie) => (
-                            <img
-                                onClick={() => handleTrailer(movie)}
-                                key={movie.id}
+                        {movies?.results?.map((movie) => (
+                            <Link
                                 className='row_postersContainer_image'
-                                src={`${baseImageUrl}${movie?.poster_path || movie?.backdrop_path}`}
-                                alt={movie?.name}
-                            />
+                                to={`${movie?.media_type || 'movie'}/${movie.id}`}
+                            >
+                                <img
+                                    onClick={() => handleTrailer(movie)}
+                                    key={movie.id}
+                                    src={`${baseImageUrl}${
+                                        movie?.poster_path ||
+                                        movie?.backdrop_path ||
+                                        movie?.profil_path
+                                    }`}
+                                    alt={movie?.name}
+                                />
+                            </Link>
                         ))}
                     </div>
                     {trailerUrl && <Youtube videoId={trailerUrl} opts={opts} />}
