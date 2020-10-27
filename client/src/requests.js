@@ -3,10 +3,10 @@ const api_key = 'c42face907d2855fe0fc335e8e2dfb78';
 export const baseImageUrl = 'https://image.tmdb.org/t/p/original';
 
 export const calculateRuntime = (runtime) => {
-    const getHours = Math.floor(runtime / 60) === 0 ? '' : `${Math.floor(runtime / 60)}h`;
-    const getMinutes = Math.floor(runtime % 60) === 0 ? '' : `${Math.floor(runtime % 60)}min`;
+    const getHours = Math.floor(runtime[0] / 60) === 0 ? '' : `${Math.floor(runtime[0] / 60)}h`;
+    const getMinutes = Math.floor(runtime[0] % 60) === 0 ? '' : `${Math.floor(runtime[0] % 60)}min`;
 
-    return `${getHours} ${getMinutes}`;
+    return getHours === NaN ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
 };
 
 const requests = {
@@ -22,6 +22,10 @@ const requests = {
 
 export const getMedia = (mediaType, mediaId) => {
     return `/${mediaType}/${mediaId}?api_key=${api_key}`;
+};
+
+export const getSeasonDetails = (mediaId, season_number) => {
+    return `tv/${mediaId}/season/${season_number}?api_key=${api_key}`;
 };
 
 export default requests;

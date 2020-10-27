@@ -2,6 +2,7 @@ export const initialState = {
     movie: null,
     tv: null,
     person: null,
+    season_details: null,
     user: null,
 };
 
@@ -17,6 +18,9 @@ const reducer = (state, action) => {
 
         case 'SET_PERSON':
             return { ...state, person: action.result };
+
+        case 'SET_SEASON_DETAILS':
+            return { ...state, season_details: action.result };
 
         default:
             return state;

@@ -9,6 +9,7 @@ import Nav from './components/Nav/Nav';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import DetailedPage from './pages/DetailedPage/DetailedPage';
+import SeasonDetails from './components/SeasonDetails/SeasonDetails';
 
 const App = () => {
     // useEffect(() => {
@@ -30,6 +31,11 @@ const App = () => {
                 <Route exact path='/' render={() => <Home />} />
                 <Route exact path='/login' render={() => <Login />} />
                 <Route exact path='/:mediaType/:mediaId' component={DetailedPage} />
+                <Route
+                    exact
+                    path='/:mediaType/:mediaId/season/:seasonNumber'
+                    component={SeasonDetails}
+                />
             </Switch>
         </Router>
     );

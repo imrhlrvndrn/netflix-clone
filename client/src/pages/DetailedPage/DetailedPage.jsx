@@ -1,19 +1,23 @@
 import React, { useEffect } from 'react';
 import axios from '../../axios';
-import Movie from '../../components/Movie/Movie';
-import Person from '../../components/Person/Person';
-import Tv from '../../components/Tv/Tv';
 import { useDataLayerValue } from '../../DataLayer';
 import { getMedia } from '../../requests';
 
 // scss files
 import './DetailedPage.scss';
 
+// React components
+import Movie from '../../components/Movie/Movie';
+import Person from '../../components/Person/Person';
+import Tv from '../../components/Tv/Tv';
+
 const DetailedPage = ({ match }) => {
     const [{ movie, tv, person }, dispatch] = useDataLayerValue();
     const mediaType = match.params.mediaType || 'movie';
     const mediaId = match.params.mediaId;
     let constructedUrl = getMedia(mediaType, mediaId);
+
+    console.log(`detailedpage match object: `, match);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -38,10 +42,9 @@ const DetailedPage = ({ match }) => {
             left: 0,
             behavior: 'smooth',
         });
-        console.log(window.scrollY);
     }, []);
 
-    console.log('mediaType:', mediaType);
+    // console.log('mediaType:', mediaType);
 
     return (
         <div className='detailedPage'>

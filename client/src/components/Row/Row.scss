@@ -19,6 +19,7 @@
 
     &_postersContainer {
         display: flex;
+        align-items: center;
         overflow-y: hidden;
         overflow-x: scroll;
         padding: 1rem 0;
@@ -40,8 +41,10 @@
 
             img {
                 width: 100px;
-                height: 200px;
-                object-fit: contain;
+                height: 150px;
+                object-fit: cover;
+                object-position: top center;
+                transition: 0.4s ease-in-out;
                 @include sm-tablet {
                     width: 200px;
                     height: 300px;
@@ -49,7 +52,6 @@
             }
 
             &:hover {
-                padding: 0 4rem;
                 transform: scale(1.08);
             }
         }
