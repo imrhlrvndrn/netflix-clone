@@ -1,9 +1,11 @@
 import React from 'react';
 import moment from 'moment';
+import useWindowSize from '../../utils/useWindowSize';
 import { baseImageUrl, calculateRuntime } from '../../requests';
 
 const Movie = ({ movie }) => {
-    // console.log('Movie data: ', movie);
+    const window = useWindowSize();
+    console.log('Movie data: ', movie);
 
     return (
         <>
@@ -19,24 +21,27 @@ const Movie = ({ movie }) => {
             >
                 <div className='detailedPage_banner_content'>
                     {window?.width > 768 && (
-                        <img
-                            src={`${baseImageUrl}${
-                                movie?.data?.poster_path || movie?.data?.backdrop_path
-                            }`}
-                            alt={
-                                movie?.data?.name ||
-                                movie?.data?.title ||
-                                movie?.data?.original_title
-                            }
-                            className='detailedPage_banner_content_posterimage'
-                        />
+                        <div className='detailedPage_banner_content_poster_image'>
+                            <img
+                                src={`${baseImageUrl}${
+                                    movie?.data?.poster_path || movie?.data?.backdrop_path
+                                }`}
+                                alt={
+                                    movie?.data?.name ||
+                                    movie?.data?.title ||
+                                    movie?.data?.original_title
+                                }
+                                className='detailedPage_banner_content_posterimage'
+                            />
+                            <div className='movie_trailer'>Watch Trailer</div>
+                        </div>
                     )}
                     <div className='detailedPage_banner_content_details'>
                         <h1>
                             {movie?.data?.title || movie?.data?.original_title} (
                             {moment(`${movie?.data?.release_date}`).format('YYYY')})
                             {movie?.data?.runtime &&
-                                window?.width > 768 &&
+                                window?.width > 1024 &&
                                 calculateRuntime(movie?.data?.runtime)}
                             {movie?.data?.adult && <span className='adult'>A</span>}
                         </h1>
@@ -46,7 +51,7 @@ const Movie = ({ movie }) => {
                             ))}
                         </div>
                         <p className='overview_text'>{movie?.data?.overview}</p>
-                        {window?.width > 768 && (
+                        {window?.width > 1024 && (
                             <div className='creators'>
                                 <h2>Production Companies</h2>
                                 <div className='creators_container'>

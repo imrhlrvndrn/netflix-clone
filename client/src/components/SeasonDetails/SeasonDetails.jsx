@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import moment from 'moment';
 import axios from '../../axios';
+import useWindowSize from '../../utils/useWindowSize';
 import { useDataLayerValue } from '../../DataLayer';
 import { baseImageUrl, getSeasonDetails } from '../../requests';
 
@@ -8,6 +10,7 @@ import './SeasonDetails.scss';
 
 const SeasonDetails = ({ match }) => {
     const [{ tv, season_details }, dispatch] = useDataLayerValue();
+    const window = useWindowSize();
     const mediaId = match.params.mediaId;
     const season_number = match.params.seasonNumber;
 
@@ -26,10 +29,60 @@ const SeasonDetails = ({ match }) => {
 
     return (
         <div className='seasonDetails'>
-            <div className='seasonDetails_banner'>
+            <div
+                className='seasonDetails_banner'
+                style={{
+                    backgroundImage: `${
+                        window?.width < 1024
+                            ? `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${season_details?.data?.poster_path})`
+                            : 'black'
+                    }`,
+                }}
+            >
                 <div className='seasonDetails_banner_details'>
-                    <img src={`${baseImageUrl}${season_details?.data?.poster_path}`} alt='' />
-                    kdlsfj;skd
+                    <h1>Season {season_details?.data?.season_number}</h1>
+                </div>
+                <div className='fadeElement'></div>
+            </div>
+            <div className='seasonDetails_mediaInfo'>
+                {season_details?.data && (
+                    <h1>Episodes ({season_details?.data?.episodes?.length})</h1>
+                )}
+                <div className='seasonDetails_mediaInfo_episodes'>
+                    {season_details?.data?.episodes?.map((episode) => {
+                        return (
+                            <div
+                                to={`/tv/${season_details?.data?.id}/episode/${episode?.episode_number}`}
+                                className='episode'
+                                key={episode?.id}
+                            >
+                                <div className='episodeInfo'>
+                                    <img
+                                        src={`${baseImageUrl}${episode?.still_path}`}
+                                        alt={episode?.name || `episode ${episode?.episode_number}`}
+                                    />
+                                    <div className='episodeInfo_main'>
+                                        <h1>
+                                            {episode?.episode_number}.
+                                            {episode?.name?.length > 8 && window?.width > 768
+                                                ? ` ${episode?.name.substring(0, 8)}...`
+                                                : ` ${episode?.name}`}
+                                        </h1>
+                                        <div>
+                                            {episode?.air_date === null
+                                                ? null
+                                                : `${moment(episode?.air_date).format(
+                                                      'MMM Do YYYY'
+                                                  )}`}
+                                        </div>
+                                    </div>
+                                </div>
+                                {window?.width <= 1024 && (
+                                    <div className='episode_overview'>{episode?.overview}</div>
+                                )}
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

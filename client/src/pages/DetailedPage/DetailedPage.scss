@@ -21,19 +21,10 @@
         justify-content: center;
         @include sm-tablet {
             background-size: cover !important;
-            padding: 0 6rem 2rem 6rem;
         }
         @include tablet {
+            padding: 0 6rem 2rem 6rem;
             height: 100vh;
-        }
-
-        .fadeElement {
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.61), #000);
         }
 
         &_content {
@@ -42,8 +33,10 @@
             flex-direction: column;
             z-index: 10;
             position: absolute;
-            padding: 0 2rem;
+            padding: 0 1rem;
             @include sm-tablet {
+                padding: 0 2rem;
+                margin-bottom: 3rem;
                 flex-direction: row;
                 position: relative;
                 bottom: 0;
@@ -51,12 +44,34 @@
                 transform: translate(0, 0);
             }
 
+            &_poster_image {
+                width: 300px;
+                height: 450px;
+                margin-right: 2rem;
+                position: relative;
+
+                .movie_trailer,
+                .season_trailer {
+                    width: 100%;
+                    padding: 1.7rem 2rem 1.5rem 2rem;
+                    text-align: center;
+                    border-radius: 0 0 5px 5px;
+                    z-index: -1;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 5px;
+                    background-color: $netflix-red;
+                    color: white;
+                    position: absolute;
+                    bottom: 8px;
+                    transform: translate(0, 100%);
+                }
+            }
             &_posterimage {
                 width: 300px;
                 height: 450px;
                 border-radius: 10px;
                 object-fit: contain;
-                margin-right: 2rem;
             }
 
             &_details {
@@ -89,7 +104,7 @@
                     }
 
                     span.adult {
-                        margin-left: 1rem;
+                        margin: 0 0 0 1rem;
                         padding: 0.5rem;
                         background-color: $netflix-red;
                         border-radius: 5px;
@@ -202,7 +217,6 @@
                     height: auto;
                     position: relative;
                     display: flex;
-                    // flex-wrap: wrap;
                     margin: 0 4rem 4rem 0;
                     flex-direction: column;
                     transition: 1s ease-in-out;
@@ -224,6 +238,14 @@
                         border-radius: 10px;
                         background-color: $netflix-red;
                         transform: translate(0, -50%);
+
+                        * {
+                            font-size: 0.8rem;
+                        }
+
+                        h1 {
+                            font-size: 1.2rem;
+                        }
                     }
                 }
             }

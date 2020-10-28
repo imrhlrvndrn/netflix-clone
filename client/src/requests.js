@@ -3,10 +3,21 @@ const api_key = 'c42face907d2855fe0fc335e8e2dfb78';
 export const baseImageUrl = 'https://image.tmdb.org/t/p/original';
 
 export const calculateRuntime = (runtime) => {
-    const getHours = Math.floor(runtime[0] / 60) === 0 ? '' : `${Math.floor(runtime[0] / 60)}h`;
-    const getMinutes = Math.floor(runtime[0] % 60) === 0 ? '' : `${Math.floor(runtime[0] % 60)}min`;
+    if (typeof runtime === 'object') {
+        if (runtime[0] === undefined) return null;
+        const getHours = Math.floor(runtime[0] / 60) === 0 ? '' : `${Math.floor(runtime[0] / 60)}h`;
+        const getMinutes =
+            Math.floor(runtime[0] % 60) === 0 ? '' : `${Math.floor(runtime[0] % 60)}min`;
 
-    return getHours === NaN ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
+        return typeof getHours === NaN ? null : (
+            <p className='runtime'>{`${getHours} ${getMinutes}`}</p>
+        );
+    } else {
+        const getHours = Math.floor(runtime / 60) === 0 ? '' : `${Math.floor(runtime / 60)}h`;
+        const getMinutes = Math.floor(runtime % 60) === 0 ? '' : `${Math.floor(runtime % 60)}min`;
+
+        return getHours === NaN ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
+    }
 };
 
 const requests = {

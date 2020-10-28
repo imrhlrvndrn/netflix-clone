@@ -22,13 +22,16 @@ const Tv = ({ tv }) => {
             >
                 <div className='detailedPage_banner_content'>
                     {window?.width > 768 && (
-                        <img
-                            src={`${baseImageUrl}${
-                                tv?.data?.poster_path || tv?.data?.backdrop_path
-                            }`}
-                            alt={tv?.data?.name || tv?.data?.title || tv?.data?.original_title}
-                            className='detailedPage_banner_content_posterimage'
-                        />
+                        <div className='detailedPage_banner_content_poster_image'>
+                            <img
+                                src={`${baseImageUrl}${
+                                    tv?.data?.poster_path || tv?.data?.backdrop_path
+                                }`}
+                                alt={tv?.data?.name || tv?.data?.title || tv?.data?.original_title}
+                                className='detailedPage_banner_content_posterimage'
+                            />
+                            <div className='movie_trailer'>Watch Trailer</div>
+                        </div>
                     )}
                     <div className='detailedPage_banner_content_details'>
                         <h1>

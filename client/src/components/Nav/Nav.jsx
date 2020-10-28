@@ -24,6 +24,12 @@ const Nav = () => {
             <Link to='/'>
                 <NetflixLogo width='80px' height='80px' fill='#e50914' />
             </Link>
+            <input
+                type='text'
+                name='searchbar'
+                id='searchbar'
+                placeholder='Search for movies & tv shows'
+            />
             <img className='nav_avatar' src={avatar} alt='netflix avatar' />
         </div>
     );

@@ -1,3 +1,5 @@
+@import './mixin.scss';
+
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +17,21 @@ body {
     min-height: 100vh;
     height: auto;
     background-color: #000;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $netflix-red;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -81,4 +98,13 @@ h6 {
     background-color: #fbe0be;
     margin: 1rem 0 0.5rem 0;
     cursor: not-allowed;
+}
+
+.fadeElement {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.61), #000);
 }

@@ -25,6 +25,9 @@
     &_content {
         max-width: 100%;
         @include sm-tablet {
+            max-width: 70%;
+        }
+        @include tablet {
             max-width: 40%;
         }
 

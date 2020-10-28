@@ -1,10 +1,141 @@
+@import '../../mixin.scss';
+
 .seasonDetails {
     height: auto;
-    min-height: 100vh;
+    position: relative;
     width: 100%;
-    background: white;
 
     &_banner {
+        padding: 0 2rem 0 2rem;
+        height: auto;
+        min-height: 70vh;
+        background-size: cover !important;
+        background-repeat: no-repeat !important;
+        background-attachment: fixed !important;
+        background-position: center center !important;
+        display: flex;
         width: 100%;
+        align-items: flex-end;
+        position: relative;
+        @include tablet {
+            padding: 0 6rem;
+            min-height: 35vh;
+        }
+
+        &_details {
+            position: relative;
+            bottom: 4rem;
+            h1 {
+                font-size: 3rem;
+                @include sm-tablet {
+                    font-size: 4rem;
+                }
+                @include tablet {
+                    font-size: 4rem;
+                }
+            }
+        }
+    }
+
+    &_mediaInfo {
+        width: 100%;
+        height: auto;
+        padding: 2rem 2rem;
+        min-height: max-content;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        @include tablet {
+            padding: 6rem;
+            min-height: 100vh;
+            justify-content: flex-start;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            @include tablet {
+                font-size: 2rem;
+            }
+        }
+
+        &_episodes {
+            width: 100%;
+            margin-top: 2rem;
+            display: block;
+            overflow-x: auto;
+            @include tablet {
+                display: flex;
+                align-items: center;
+            }
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .episode {
+                width: 100%;
+                height: auto;
+                position: relative;
+                margin: 0 0 1rem 0;
+                transition: 1s ease-in-out;
+                @include tablet {
+                    width: 200px;
+                    height: auto;
+                    display: flex;
+                    margin: 0 4rem 4rem 0;
+                    flex-direction: column;
+                }
+
+                .episodeInfo {
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        margin: 0;
+                        width: 60px;
+                        height: 60px;
+                        border-radius: 5px;
+                        object-fit: cover;
+                        @include tablet {
+                            width: 200px;
+                            height: 250px;
+                            margin-bottom: 1rem;
+                            border-radius: 10px;
+                        }
+                    }
+                    &_main {
+                        flex: 1;
+                        padding: 1rem;
+                        @include tablet {
+                            width: max-content;
+                            max-width: 230px;
+                            position: absolute;
+                            bottom: -30%;
+                            left: 10%;
+                            padding: 1rem 2rem;
+                            border-radius: 10px;
+                            background-color: $netflix-red;
+                            transform: translate(0, -50%);
+                        }
+
+                        h1 {
+                            font-size: 1rem;
+                            @include tablet {
+                                font-size: 1.2rem;
+                            }
+                        }
+
+                        div {
+                            opacity: 0.6;
+                            font-size: 0.8rem;
+                            margin-top: 0.3rem;
+                        }
+                    }
+                }
+                &_overview {
+                    width: 100%;
+                }
+            }
+        }
     }
 }

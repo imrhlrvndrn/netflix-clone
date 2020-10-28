@@ -6,12 +6,13 @@
     top: 0;
     left: 0;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     height: 80px;
     z-index: 1000;
 
     a {
-        margin-left: 1rem;
+        flex: 0.2;
+        margin: 0 1rem 0 1rem;
         width: 80px;
         object-fit: contain;
         height: auto;
@@ -20,13 +21,28 @@
         }
     }
 
+    input {
+        flex: 1;
+        height: 50px;
+        max-width: 100%;
+        background-color: rgba(255, 255, 255, 1);
+        color: black;
+        border-radius: 30px;
+        @include tablet {
+            max-width: 40%;
+            height: 60px;
+        }
+    }
+
     &_avatar {
-        margin-right: 1rem;
+        flex: 0.2;
+        margin: 0 1rem 0 1rem;
         width: 40px;
+        max-width: 40px;
         object-fit: contain;
         height: auto;
         @include sm-tablet {
-            margin-right: 2rem;
+            margin: 0 1rem 0 auto;
         }
     }
 
