@@ -5,15 +5,13 @@ import movieTrailer from 'movie-trailer';
 
 // scss files
 import './Row.scss';
-import { useDataLayerValue } from '../../DataLayer';
 import { Link } from 'react-router-dom';
 
 // React components
 
-const Row = ({ title, fetchUrl, setError }) => {
+const Row = ({ title, fetchUrl, setError, media_type }) => {
     const baseImageUrl = 'https://image.tmdb.org/t/p/original/';
-    // const [{}, dispatch] = useDataLayerValue();
-    const [movies, setMovies] = useState('');
+    const [results, setResults] = useState('');
     const [trailerUrl, setTrailerUrl] = useState('');
     const opts = {
         height: '500px',
@@ -24,50 +22,61 @@ const Row = ({ title, fetchUrl, setError }) => {
     useEffect(() => {
         const fetchData = async () => {
             const req = await axios.get(fetchUrl);
-            setMovies(req.data);
+            setResults(req.data);
             return req;
         };
 
         fetchData();
     }, [fetchUrl]);
 
-    const handleTrailer = (movie) => {
+    const handleTrailer = (result) => {
         if (trailerUrl) setTrailerUrl('');
         else {
-            movieTrailer(movie?.name || '')
+            movieTrailer(result?.name || '')
                 .then((url) => {
                     const urlParams = new URLSearchParams(new URL(url).search);
                     setTrailerUrl(urlParams.get('v'));
                 })
                 .catch((error) => {
-                    setError(movie?.name || movie?.title || movie?.original_name);
+                    setError(
+                        result?.name ||
+                            result?.original_name ||
+                            result?.title ||
+                            result?.original_title
+                    );
                     console.log(error);
                 });
         }
     };
 
-    console.log(movies);
+    console.log(results);
 
     return (
         <>
-            {movies.results?.length && (
+            {results.results?.length && (
                 <div className='row'>
                     {title && <h1 className='row_title'>{title}</h1>}
                     <div className='row_postersContainer'>
-                        {movies?.results?.map((movie) => (
+                        {results?.results?.map((result) => (
                             <Link
                                 className='row_postersContainer_image'
-                                to={`${movie?.media_type || 'movie'}/${movie.id}`}
+                                to={`${
+                                    result?.media_type
+                                        ? result?.media_type
+                                        : media_type
+                                        ? media_type
+                                        : 'movie'
+                                }/${result.id}`}
                             >
                                 <img
-                                    onClick={() => handleTrailer(movie)}
-                                    key={movie.id}
+                                    onClick={() => handleTrailer(result)}
+                                    key={result.id}
                                     src={`${baseImageUrl}${
-                                        movie?.poster_path ||
-                                        movie?.backdrop_path ||
-                                        movie?.profil_path
+                                        result?.poster_path ||
+                                        result?.backdrop_path ||
+                                        result?.profil_path
                                     }`}
-                                    alt={movie?.name}
+                                    alt={result?.name}
                                 />
                             </Link>
                         ))}

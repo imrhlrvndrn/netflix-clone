@@ -1,4 +1,5 @@
 export const initialState = {
+    search_query: null,
     movie: null,
     tv: null,
     person: null,
@@ -21,6 +22,9 @@ const reducer = (state, action) => {
 
         case 'SET_SEASON_DETAILS':
             return { ...state, season_details: action.result };
+
+        case 'SET_SEARCH_QUERY':
+            return { ...state, search_query: action.result };
 
         default:
             return state;

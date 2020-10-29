@@ -13,7 +13,7 @@ const Movie = ({ movie }) => {
                 className='detailedPage_banner'
                 style={{
                     background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${
-                        window?.width < 768
+                        window?.width <= 768
                             ? movie?.data?.poster_path
                             : movie?.data?.backdrop_path || movie?.data?.poster_path
                     })`,
@@ -51,7 +51,7 @@ const Movie = ({ movie }) => {
                             ))}
                         </div>
                         <p className='overview_text'>{movie?.data?.overview}</p>
-                        {window?.width > 1024 && (
+                        {window?.width > 1024 && movie?.data?.production_companies.length > 1 && (
                             <div className='creators'>
                                 <h2>Production Companies</h2>
                                 <div className='creators_container'>

@@ -14,7 +14,7 @@ const Tv = ({ tv }) => {
                 className='detailedPage_banner'
                 style={{
                     background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${
-                        window?.width < 768
+                        window?.width <= 768
                             ? tv?.data?.poster_path
                             : tv?.data?.backdrop_path || tv?.data?.poster_path
                     })`,

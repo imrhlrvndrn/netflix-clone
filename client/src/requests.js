@@ -39,4 +39,8 @@ export const getSeasonDetails = (mediaId, season_number) => {
     return `tv/${mediaId}/season/${season_number}?api_key=${api_key}`;
 };
 
+export const searchMedia = (query) => {
+    return `search/multi?api_key=${api_key}&query=${query}&include_adult=true`;
+};
+
 export default requests;
