@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { baseImageUrl, calculateRuntime } from '../../requests';
+import axios from '../../axios';
+import { baseImageUrl, calculateRuntime, getCast } from '../../requests';
 import useWindowSize from '../../utils/useWindowSize';
+import { useDataLayerValue } from '../../DataLayer';
 
 const Tv = ({ tv }) => {
     console.log('TV: ', tv);
+    const [{ media_cast }, dispatch] = useDataLayerValue();
     const window = useWindowSize();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(getCast('tv', tv?.data?.id));
+
+            dispatch({ type: 'SET_CAST', result: response });
+        };
+
+        fetchData();
+    }, [tv]);
 
     return (
         <>
@@ -71,6 +84,25 @@ const Tv = ({ tv }) => {
             </div>
             <section className='detailedPage_mediaInfo'>
                 <div className='detailedPage_mediaInfo_left'>
+                    <h1>Cast</h1>
+                    <div className='detailedPage_mediaInfo_left_casts'>
+                        {media_cast?.data?.cast?.map((cast) => {
+                            return (
+                                <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
+                                    <img
+                                        src={`${baseImageUrl}${cast?.profile_path}`}
+                                        alt={cast?.name || `cast ${cast?.character}`}
+                                    />
+                                    <div className='castInfo'>
+                                        <h1>{cast?.name}</h1>
+                                        <div>
+                                            {cast?.character === null ? null : cast?.character}
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
                     <h1>Seasons</h1>
                     <div className='detailedPage_mediaInfo_left_seasons'>
                         {tv?.data?.seasons?.map((season) => {
@@ -101,7 +133,38 @@ const Tv = ({ tv }) => {
                         })}
                     </div>
                 </div>
-                <div className='detailedPage_mediaInfo_right'></div>
+                <div className='detailedPage_mediaInfo_right'>
+                    <div className='mediaStats'>
+                        <div className='mediaStats_stat'>
+                            <h1>First air date</h1>
+                            <p>{moment(tv?.data?.first_air_date).format('Do MMM YYYY')}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Last air date</h1>
+                            <p>{moment(tv?.data?.last_air_date).format('Do MMM YYYY')}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Status</h1>
+                            <p>{tv?.data?.status}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Type</h1>
+                            <p>{tv?.data?.type}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Original language</h1>
+                            <p>{tv?.data?.original_language}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Networks</h1>
+                            <p>
+                                {tv?.data?.networks?.map((network) => (
+                                    <img src={`${baseImageUrl}${network.logo_path}`} />
+                                ))}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </>
     );

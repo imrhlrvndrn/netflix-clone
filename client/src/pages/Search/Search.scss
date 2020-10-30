@@ -2,10 +2,11 @@
 
 .searchResults {
     input {
+        width: 90%;
         background-color: white;
         color: black;
-        width: 100%;
-        margin: 0 2rem;
+        margin-top: 1rem;
+        border-radius: 30px;
         position: relative;
         left: 50%;
         transform: translateX(-50%);
@@ -13,28 +14,26 @@
 
     &_container {
         padding: 4rem 2rem;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(100px, 200px));
-        grid-template-rows: repeat(auto-fit, minmax(200px, 300px));
-        grid-gap: 1rem;
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
         @include tablet {
             padding: 6rem 4rem;
         }
 
         &_image {
             cursor: pointer;
-            width: 100%;
+            width: max-content;
             max-height: 200px;
-            margin-right: 1rem;
-            transition: transform 0.4s;
+            margin: 0 1rem 2rem 0;
+            transition: 0.4s ease-in-out;
             @include phone {
                 max-height: 300px;
             }
-            transition: 0.4s ease-in-out;
 
             img {
-                width: 100%;
-                height: auto;
+                width: 100px;
+                height: 150px;
                 object-fit: cover;
                 object-position: top center;
                 transition: 0.4s ease-in-out;

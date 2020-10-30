@@ -23,8 +23,7 @@
     }
 
     a {
-        flex: 0.2;
-        margin: 0 1rem 0 1rem;
+        margin: 0 2rem 0 1rem;
         width: 80px;
         object-fit: contain;
         height: auto;
@@ -35,14 +34,15 @@
 
     input {
         flex: 1;
-        height: 50px;
+        height: 40px;
         max-width: 100%;
         background-color: rgba(255, 255, 255, 1);
         color: black;
         border-radius: 30px;
+        padding: 0 2rem;
         @include tablet {
             max-width: 40%;
-            height: 60px;
+            height: 50px;
         }
     }
 

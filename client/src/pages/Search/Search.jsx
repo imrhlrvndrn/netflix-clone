@@ -28,6 +28,7 @@ const Search = () => {
         <div className='searchResults'>
             {_window?.width <= 1024 && (
                 <input
+                    autocomplete='off'
                     value={searchQuery}
                     onChange={(e) => {
                         setSearchQuery(e.target.value);

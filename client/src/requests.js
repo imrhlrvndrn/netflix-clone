@@ -43,4 +43,12 @@ export const searchMedia = (query) => {
     return `search/multi?api_key=${api_key}&query=${query}&include_adult=true`;
 };
 
+export const getCast = (mediaType, mediaId) => {
+    return `${mediaType}/${mediaId}/credits?api_key=${api_key}`;
+};
+
+export const getLanguages = () => {
+    return `configuration/languages?api_key=${api_key}`;
+};
+
 export default requests;

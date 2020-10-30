@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
+import axios from '../../axios';
 import useWindowSize from '../../utils/useWindowSize';
-import { baseImageUrl, calculateRuntime } from '../../requests';
+import { baseImageUrl, calculateRuntime, getCast } from '../../requests';
+import { useDataLayerValue } from '../../DataLayer';
+import { Link } from 'react-router-dom';
 
 const Movie = ({ movie }) => {
     const window = useWindowSize();
+    const [{ media_cast }, dispatch] = useDataLayerValue();
     console.log('Movie data: ', movie);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(getCast('movie', movie?.data?.id));
+
+            dispatch({ type: 'SET_CAST', result: response });
+        };
+
+        fetchData();
+    }, [movie]);
 
     return (
         <>
@@ -28,6 +42,7 @@ const Movie = ({ movie }) => {
                                 }`}
                                 alt={
                                     movie?.data?.name ||
+                                    movie?.data?.original_name ||
                                     movie?.data?.title ||
                                     movie?.data?.original_title
                                 }
@@ -75,9 +90,44 @@ const Movie = ({ movie }) => {
             </div>
             <section className='detailedPage_mediaInfo'>
                 <div className='detailedPage_mediaInfo_left'>
-                    <div className='detailedPage_mediaInfo_left_seasons'></div>
+                    <h1>Cast</h1>
+                    <div className='detailedPage_mediaInfo_left_casts'>
+                        {media_cast?.data?.cast?.map((cast) => {
+                            return (
+                                <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
+                                    <img
+                                        src={`${baseImageUrl}${cast?.profile_path}`}
+                                        alt={cast?.name || `cast ${cast?.character}`}
+                                    />
+                                    <div className='castInfo'>
+                                        <h1>{cast?.name}</h1>
+                                        <div>
+                                            {cast?.character === null ? null : cast?.character}
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
                 </div>
-                <div className='detailedPage_mediaInfo_right'></div>
+                <div className='detailedPage_mediaInfo_right'>
+                    <div className='mediaStats'>
+                        <div className='mediaStats_stat'>
+                            <h1>Release date</h1>
+                            <p>{moment(movie?.data?.release_date).format('Do MMM YYYY')}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Status</h1>
+                            <p>{movie?.data?.status}</p>
+                        </div>
+                        <div className='mediaStats_stat'>
+                            <h1>Spoken languages</h1>
+                            <p>
+                                {movie?.data?.spoken_languages?.map((lang) => lang.name).join(', ')}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </section>
         </>
     );

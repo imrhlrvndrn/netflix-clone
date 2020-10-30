@@ -19,9 +19,9 @@ const ErrorHandler = ({ setError, movie_name }) => {
                         <a
                             target='_blank'
                             rel='noreferrer'
-                            href={`https://www.google.com/search?q=${query}+official+trailer`}
+                            href={`https://youtube.com/results?search_query=${query}+official+trailer`}
                         >
-                            search on chrome
+                            search on YouTube
                         </a>
                     </button>
                 </div>

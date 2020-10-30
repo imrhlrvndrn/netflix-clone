@@ -177,6 +177,7 @@
     }
 
     &_mediaInfo {
+        position: relative;
         width: 100%;
         height: auto;
         padding: 2rem 2rem;
@@ -194,6 +195,7 @@
         &_left {
             width: 100%;
             @include tablet {
+                margin-right: 1rem;
                 width: 70%;
             }
 
@@ -201,7 +203,8 @@
                 font-size: 1.5rem;
             }
 
-            &_seasons {
+            &_seasons,
+            &_casts {
                 width: 100%;
                 margin-top: 2rem;
                 display: flex;
@@ -212,7 +215,8 @@
                     display: none;
                 }
 
-                .season {
+                .season,
+                .cast {
                     width: 200px;
                     height: auto;
                     position: relative;
@@ -229,21 +233,25 @@
                         height: 250px;
                     }
 
-                    .seasonInfo {
+                    .seasonInfo,
+                    .castInfo {
                         width: max-content;
+                        min-width: 200px;
+                        max-width: 200px;
                         position: absolute;
                         bottom: -20%;
                         left: 10%;
-                        padding: 1rem 3rem;
+                        padding: 1rem 2rem;
                         border-radius: 10px;
                         background-color: $netflix-red;
-                        transform: translate(0, -50%);
+                        transform: translate(0, -10%);
 
                         * {
                             font-size: 0.8rem;
                         }
 
                         h1 {
+                            width: 80%;
                             font-size: 1.2rem;
                         }
                     }
@@ -252,8 +260,48 @@
         }
 
         &_right {
-            width: 30%;
-            height: 100px;
+            width: 100%;
+            margin-bottom: 2rem;
+            @include tablet {
+                margin-bottom: 0;
+                width: 30%;
+            }
+
+            .mediaStats {
+                background-color: $netflix-red;
+                width: 100%;
+                height: auto;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding: 2rem;
+                @include tablet {
+                    justify-content: space-between;
+                }
+
+                &_stat {
+                    width: max-content;
+                    margin: 0 1rem 1rem 0;
+
+                    h1 {
+                        color: white;
+                        font-size: 1.2rem;
+                    }
+
+                    p {
+                        opacity: 0.8;
+                        font-size: 0.8rem;
+
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            object-fit: contain;
+                            margin: 0 1rem 1rem 0;
+                        }
+                    }
+                }
+            }
         }
     }
 }

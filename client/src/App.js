@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { getLanguages } from './requests';
 import { useDataLayerValue } from './DataLayer';
+import axios from './axios';
 
 // scss files
 import './GlobalStyles.scss';
@@ -29,6 +31,14 @@ const App = () => {
     //     });
     // }, []);
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get(getLanguages());
+        };
+
+        fetchData();
+    }, []);
+
     return (
         <Router>
             <Nav setSearchState={setSearchState} />
@@ -40,7 +50,11 @@ const App = () => {
                 />
                 <Route exact path='/login' render={() => <Login />} />
                 <Route exact path='/search' render={() => <Search />} />
-                <Route exact path='/:mediaType/:mediaId' component={DetailedPage} />
+                <Route
+                    exact
+                    path='/:mediaType/:mediaId'
+                    render={(props) => <DetailedPage {...props} searchState={searchState} />}
+                />
                 <Route
                     exact
                     path='/:mediaType/:mediaId/season/:seasonNumber'

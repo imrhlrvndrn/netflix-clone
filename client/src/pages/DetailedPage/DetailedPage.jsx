@@ -10,8 +10,9 @@ import './DetailedPage.scss';
 import Movie from '../../components/Movie/Movie';
 import Person from '../../components/Person/Person';
 import Tv from '../../components/Tv/Tv';
+import Search from '../Search/Search';
 
-const DetailedPage = ({ match }) => {
+const DetailedPage = ({ match, searchState }) => {
     const [{ movie, tv, person }, dispatch] = useDataLayerValue();
     const mediaType = match.params.mediaType || 'movie';
     const mediaId = match.params.mediaId;
@@ -48,7 +49,9 @@ const DetailedPage = ({ match }) => {
 
     return (
         <div className='detailedPage'>
-            {mediaType === 'movie' ? (
+            {searchState ? (
+                <Search />
+            ) : mediaType === 'movie' ? (
                 <Movie movie={movie} />
             ) : mediaType === 'tv' ? (
                 <Tv tv={tv} />
