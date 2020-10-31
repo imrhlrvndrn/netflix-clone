@@ -8,14 +8,14 @@ import Row from '../../components/Row/Row';
 import requests from '../../requests';
 import Search from '../Search/Search';
 
-const Home = ({ searchState }) => {
+const Home = ({ searchState, setSearchState }) => {
     // const _window = useWindowSize();
     const [error, setError] = useState('');
 
     return (
         <>
             {searchState ? (
-                <Search />
+                <Search setSearchState={setSearchState} />
             ) : (
                 <>
                     <Banner />

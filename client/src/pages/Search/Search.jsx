@@ -8,7 +8,10 @@ import useWindowSize from '../../utils/useWindowSize';
 // scss files
 import './Search.scss';
 
-const Search = () => {
+// images
+import NetflixDefault from '../../react icons/netflix_default.jpg';
+
+const Search = ({ setSearchState }) => {
     const [{ search_query }, dispatch] = useDataLayerValue();
     const [searchQuery, setSearchQuery] = useState('');
     const _window = useWindowSize();
@@ -42,13 +45,18 @@ const Search = () => {
                 {search_query?.data?.results?.map((result) => (
                     <Link
                         className='searchResults_container_image'
-                        to={`${result?.media_type ? result?.media_type : 'movie'}/${result.id}`}
+                        onClick={() => setSearchState(false)}
+                        to={`/${result?.media_type ? result?.media_type : 'movie'}/${result.id}`}
                     >
                         <img
                             key={result.id}
-                            src={`${baseImageUrl}${
-                                result?.poster_path || result?.backdrop_path || result?.profile_path
-                            }`}
+                            src={
+                                `${baseImageUrl('w200')}/${
+                                    result?.poster_path ||
+                                    result?.backdrop_path ||
+                                    result?.profile_path
+                                }` || NetflixDefault
+                            }
                             alt={
                                 result?.name ||
                                 result?.original_name ||

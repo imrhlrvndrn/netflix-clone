@@ -89,6 +89,12 @@
                         font-size: 2rem;
                     }
 
+                    span {
+                        font-size: inherit;
+                        opacity: 0.8;
+                        margin: 0 0 0 1rem;
+                    }
+
                     .runtime {
                         margin: 0 0 0 1rem;
                         display: inline-block;
@@ -239,12 +245,12 @@
                         min-width: 200px;
                         max-width: 200px;
                         position: absolute;
-                        bottom: -20%;
+                        bottom: 0;
                         left: 10%;
                         padding: 1rem 2rem;
                         border-radius: 10px;
                         background-color: $netflix-red;
-                        transform: translate(0, -10%);
+                        transform: translate(0, 50%);
 
                         * {
                             font-size: 0.8rem;
@@ -294,6 +300,8 @@
                         font-size: 0.8rem;
 
                         img {
+                            background-color: white;
+                            mix-blend-mode: difference;
                             width: 40px;
                             height: 40px;
                             object-fit: contain;

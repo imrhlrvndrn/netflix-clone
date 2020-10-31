@@ -6,11 +6,11 @@ import movieTrailer from 'movie-trailer';
 // scss files
 import './Row.scss';
 import { Link } from 'react-router-dom';
+import { baseImageUrl } from '../../requests';
 
 // React components
 
 const Row = ({ title, fetchUrl, setError, media_type }) => {
-    const baseImageUrl = 'https://image.tmdb.org/t/p/original/';
     const [results, setResults] = useState('');
     const [trailerUrl, setTrailerUrl] = useState('');
     const opts = {
@@ -71,10 +71,10 @@ const Row = ({ title, fetchUrl, setError, media_type }) => {
                                 <img
                                     onClick={() => handleTrailer(result)}
                                     key={result.id}
-                                    src={`${baseImageUrl}${
+                                    src={`${baseImageUrl('w200')}${
                                         result?.poster_path ||
                                         result?.backdrop_path ||
-                                        result?.profil_path
+                                        result?.profile_path
                                     }`}
                                     alt={result?.name}
                                 />

@@ -47,11 +47,15 @@ const Nav = ({ setSearchState }) => {
                         <NetflixLogo width='80px' height='80px' fill='#e50914' />
                     </Link>
                     <input
+                        autoComplete='off'
                         onFocus={() => setSearchState(true)}
+                        onBlur={() =>
+                            setTimeout(() => {
+                                // setSearchState(false);
+                            }, 500)
+                        }
                         value={searchQuery}
                         onChange={(e) => {
-                            // !searchQuery.length
-                            //     ? setSearchState(false)
                             setSearchQuery(e.target.value);
                         }}
                         type='text'

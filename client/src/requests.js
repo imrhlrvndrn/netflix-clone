@@ -1,10 +1,18 @@
 const api_key = 'c42face907d2855fe0fc335e8e2dfb78';
 
-export const baseImageUrl = 'https://image.tmdb.org/t/p/original';
+export const baseImageUrl = (size) => `https://image.tmdb.org/t/p/${size}`;
 
 export const calculateRuntime = (runtime) => {
+    if (runtime === 0 || runtime === undefined || runtime === '' || runtime === null) return null;
     if (typeof runtime === 'object') {
-        if (runtime[0] === undefined) return null;
+        if (
+            runtime[0] === 0 ||
+            runtime[0] === undefined ||
+            runtime[0] === '' ||
+            runtime[0] === null
+        )
+            return null;
+
         const getHours = Math.floor(runtime[0] / 60) === 0 ? '' : `${Math.floor(runtime[0] / 60)}h`;
         const getMinutes =
             Math.floor(runtime[0] % 60) === 0 ? '' : `${Math.floor(runtime[0] % 60)}min`;
@@ -18,6 +26,10 @@ export const calculateRuntime = (runtime) => {
 
         return getHours === NaN ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
     }
+};
+
+export const calculateAge = (birthYear) => {
+    return new Date().getFullYear() - +birthYear;
 };
 
 const requests = {
@@ -50,5 +62,8 @@ export const getCast = (mediaType, mediaId) => {
 export const getLanguages = () => {
     return `configuration/languages?api_key=${api_key}`;
 };
+
+export const getCombinedCredits = (personId) =>
+    `/person/${personId}/combined_credits?api_key=${api_key}`;
 
 export default requests;

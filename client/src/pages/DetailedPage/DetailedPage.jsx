@@ -12,7 +12,7 @@ import Person from '../../components/Person/Person';
 import Tv from '../../components/Tv/Tv';
 import Search from '../Search/Search';
 
-const DetailedPage = ({ match, searchState }) => {
+const DetailedPage = ({ match, searchState, setSearchState }) => {
     const [{ movie, tv, person }, dispatch] = useDataLayerValue();
     const mediaType = match.params.mediaType || 'movie';
     const mediaId = match.params.mediaId;
@@ -50,7 +50,7 @@ const DetailedPage = ({ match, searchState }) => {
     return (
         <div className='detailedPage'>
             {searchState ? (
-                <Search />
+                <Search setSearchState={setSearchState} />
             ) : mediaType === 'movie' ? (
                 <Movie movie={movie} />
             ) : mediaType === 'tv' ? (

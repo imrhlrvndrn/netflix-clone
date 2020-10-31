@@ -46,14 +46,30 @@ const App = () => {
                 <Route
                     exact
                     path='/'
-                    render={(props) => <Home {...props} searchState={searchState} />}
+                    render={(props) => (
+                        <Home
+                            {...props}
+                            setSearchState={setSearchState}
+                            searchState={searchState}
+                        />
+                    )}
                 />
                 <Route exact path='/login' render={() => <Login />} />
-                <Route exact path='/search' render={() => <Search />} />
+                <Route
+                    exact
+                    path='/search'
+                    render={() => <Search setSearchState={setSearchState} />}
+                />
                 <Route
                     exact
                     path='/:mediaType/:mediaId'
-                    render={(props) => <DetailedPage {...props} searchState={searchState} />}
+                    render={(props) => (
+                        <DetailedPage
+                            {...props}
+                            setSearchState={setSearchState}
+                            searchState={searchState}
+                        />
+                    )}
                 />
                 <Route
                     exact

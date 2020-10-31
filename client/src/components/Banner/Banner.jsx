@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
-import requests from '../../requests';
+import requests, { baseImageUrl } from '../../requests';
 
 // scss files
 import './Banner.scss';
@@ -23,7 +23,7 @@ const Banner = () => {
             style={{
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
-                backgroundImage: `url('https://image.tmdb.org/t/p/original/${movie?.backdrop_path}')`,
+                backgroundImage: `url(${baseImageUrl('original')}${movie?.backdrop_path})`,
                 backgroundPosition: 'center center',
             }}
         >

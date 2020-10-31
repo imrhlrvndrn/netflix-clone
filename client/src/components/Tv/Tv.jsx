@@ -26,7 +26,9 @@ const Tv = ({ tv }) => {
             <div
                 className='detailedPage_banner'
                 style={{
-                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${
+                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl(
+                        'original'
+                    )}${
                         window?.width <= 768
                             ? tv?.data?.poster_path
                             : tv?.data?.backdrop_path || tv?.data?.poster_path
@@ -37,7 +39,7 @@ const Tv = ({ tv }) => {
                     {window?.width > 768 && (
                         <div className='detailedPage_banner_content_poster_image'>
                             <img
-                                src={`${baseImageUrl}${
+                                src={`${baseImageUrl('w300')}${
                                     tv?.data?.poster_path || tv?.data?.backdrop_path
                                 }`}
                                 alt={tv?.data?.name || tv?.data?.title || tv?.data?.original_title}
@@ -90,7 +92,7 @@ const Tv = ({ tv }) => {
                             return (
                                 <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
                                     <img
-                                        src={`${baseImageUrl}${cast?.profile_path}`}
+                                        src={`${baseImageUrl('w200')}${cast?.profile_path}`}
                                         alt={cast?.name || `cast ${cast?.character}`}
                                     />
                                     <div className='castInfo'>
@@ -113,7 +115,7 @@ const Tv = ({ tv }) => {
                                     key={season?.id}
                                 >
                                     <img
-                                        src={`${baseImageUrl}${season?.poster_path}`}
+                                        src={`${baseImageUrl('w200')}${season?.poster_path}`}
                                         alt={season?.name || `Season ${season?.season_number}`}
                                     />
                                     <div className='seasonInfo'>
@@ -159,7 +161,7 @@ const Tv = ({ tv }) => {
                             <h1>Networks</h1>
                             <p>
                                 {tv?.data?.networks?.map((network) => (
-                                    <img src={`${baseImageUrl}${network.logo_path}`} />
+                                    <img src={`${baseImageUrl('w200')}${network.logo_path}`} />
                                 ))}
                             </p>
                         </div>

@@ -7,7 +7,7 @@ import { useDataLayerValue } from '../../DataLayer';
 import { Link } from 'react-router-dom';
 
 const Movie = ({ movie }) => {
-    const window = useWindowSize();
+    const _window = useWindowSize();
     const [{ media_cast }, dispatch] = useDataLayerValue();
     console.log('Movie data: ', movie);
 
@@ -27,17 +27,17 @@ const Movie = ({ movie }) => {
                 className='detailedPage_banner'
                 style={{
                     background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${
-                        window?.width <= 768
+                        _window?.width <= 768
                             ? movie?.data?.poster_path
                             : movie?.data?.backdrop_path || movie?.data?.poster_path
                     })`,
                 }}
             >
                 <div className='detailedPage_banner_content'>
-                    {window?.width > 768 && (
+                    {_window?.width > 768 && (
                         <div className='detailedPage_banner_content_poster_image'>
                             <img
-                                src={`${baseImageUrl}${
+                                src={`${baseImageUrl('w300')}/${
                                     movie?.data?.poster_path || movie?.data?.backdrop_path
                                 }`}
                                 alt={
@@ -53,11 +53,13 @@ const Movie = ({ movie }) => {
                     )}
                     <div className='detailedPage_banner_content_details'>
                         <h1>
-                            {movie?.data?.title || movie?.data?.original_title} (
-                            {moment(`${movie?.data?.release_date}`).format('YYYY')})
-                            {movie?.data?.runtime &&
-                                window?.width > 1024 &&
-                                calculateRuntime(movie?.data?.runtime)}
+                            {movie?.data?.title || movie?.data?.original_title}
+                            {movie?.data?.release_date !== '' &&
+                                `(${moment(movie?.data?.release_date).format('YYYY')})`}
+                            {movie?.data?.runtime !== undefined ||
+                                (movie?.data?.runtime !== 0 &&
+                                    _window?.width > 1024 &&
+                                    calculateRuntime(movie?.data?.runtime))}
                             {movie?.data?.adult && <span className='adult'>A</span>}
                         </h1>
                         <div className='genre_container'>
@@ -66,7 +68,7 @@ const Movie = ({ movie }) => {
                             ))}
                         </div>
                         <p className='overview_text'>{movie?.data?.overview}</p>
-                        {window?.width > 1024 && movie?.data?.production_companies.length > 1 && (
+                        {_window?.width > 1024 && movie?.data?.production_companies.length > 1 && (
                             <div className='creators'>
                                 <h2>Production Companies</h2>
                                 <div className='creators_container'>
@@ -96,8 +98,8 @@ const Movie = ({ movie }) => {
                             return (
                                 <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
                                     <img
-                                        src={`${baseImageUrl}${cast?.profile_path}`}
-                                        alt={cast?.name || `cast ${cast?.character}`}
+                                        src={`${baseImageUrl('w200')}${cast?.profile_path}`}
+                                        alt={cast?.name || cast?.character}
                                     />
                                     <div className='castInfo'>
                                         <h1>{cast?.name}</h1>
