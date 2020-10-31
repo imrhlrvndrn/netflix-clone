@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
-import moment from 'moment';
 import axios from '../../axios';
 import useWindowSize from '../../utils/useWindowSize';
-import { baseImageUrl, calculateRuntime, getCast } from '../../requests';
+import {
+    baseImageUrl,
+    baseImageUrlLink,
+    calculateRuntime,
+    formatDate,
+    getCast,
+} from '../../requests';
 import { useDataLayerValue } from '../../DataLayer';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +31,9 @@ const Movie = ({ movie }) => {
             <div
                 className='detailedPage_banner'
                 style={{
-                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${
+                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
+                        'original'
+                    )}/${
                         _window?.width <= 768
                             ? movie?.data?.poster_path
                             : movie?.data?.backdrop_path || movie?.data?.poster_path
@@ -36,18 +43,15 @@ const Movie = ({ movie }) => {
                 <div className='detailedPage_banner_content'>
                     {_window?.width > 768 && (
                         <div className='detailedPage_banner_content_poster_image'>
-                            <img
-                                src={`${baseImageUrl('w300')}/${
-                                    movie?.data?.poster_path || movie?.data?.backdrop_path
-                                }`}
-                                alt={
-                                    movie?.data?.name ||
+                            {baseImageUrl(
+                                'original',
+                                movie?.data?.poster_path || movie?.data?.backdrop_path,
+                                movie?.data?.name ||
                                     movie?.data?.original_name ||
                                     movie?.data?.title ||
-                                    movie?.data?.original_title
-                                }
-                                className='detailedPage_banner_content_posterimage'
-                            />
+                                    movie?.data?.original_title,
+                                'detailedPage_banner_content_posterimage'
+                            )}
                             <div className='movie_trailer'>Watch Trailer</div>
                         </div>
                     )}
@@ -55,11 +59,8 @@ const Movie = ({ movie }) => {
                         <h1>
                             {movie?.data?.title || movie?.data?.original_title}
                             {movie?.data?.release_date !== '' &&
-                                `(${moment(movie?.data?.release_date).format('YYYY')})`}
-                            {movie?.data?.runtime !== undefined ||
-                                (movie?.data?.runtime !== 0 &&
-                                    _window?.width > 1024 &&
-                                    calculateRuntime(movie?.data?.runtime))}
+                                ` (${formatDate('YYYY', movie?.data?.release_date)})`}
+                            {_window?.width > 1024 && calculateRuntime(movie?.data?.runtime)}
                             {movie?.data?.adult && <span className='adult'>A</span>}
                         </h1>
                         <div className='genre_container'>
@@ -97,10 +98,11 @@ const Movie = ({ movie }) => {
                         {media_cast?.data?.cast?.map((cast) => {
                             return (
                                 <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
-                                    <img
-                                        src={`${baseImageUrl('w200')}${cast?.profile_path}`}
-                                        alt={cast?.name || cast?.character}
-                                    />
+                                    {baseImageUrl(
+                                        'w200',
+                                        cast?.profile_path,
+                                        cast?.name || cast?.character
+                                    )}
                                     <div className='castInfo'>
                                         <h1>{cast?.name}</h1>
                                         <div>
@@ -116,7 +118,7 @@ const Movie = ({ movie }) => {
                     <div className='mediaStats'>
                         <div className='mediaStats_stat'>
                             <h1>Release date</h1>
-                            <p>{moment(movie?.data?.release_date).format('Do MMM YYYY')}</p>
+                            <p>{formatDate('Do MMM YYYY', movie?.data?.release_date)}</p>
                         </div>
                         <div className='mediaStats_stat'>
                             <h1>Status</h1>

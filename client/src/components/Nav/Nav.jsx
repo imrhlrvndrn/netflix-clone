@@ -51,7 +51,7 @@ const Nav = ({ setSearchState }) => {
                         onFocus={() => setSearchState(true)}
                         onBlur={() =>
                             setTimeout(() => {
-                                // setSearchState(false);
+                                setSearchState(false);
                             }, 500)
                         }
                         value={searchQuery}

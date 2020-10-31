@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import moment from 'moment';
 import axios from '../../axios';
-import { baseImageUrl, calculateRuntime, getCast } from '../../requests';
+import {
+    baseImageUrl,
+    baseImageUrlLink,
+    calculateRuntime,
+    formatDate,
+    getCast,
+} from '../../requests';
 import useWindowSize from '../../utils/useWindowSize';
 import { useDataLayerValue } from '../../DataLayer';
 
@@ -26,9 +31,9 @@ const Tv = ({ tv }) => {
             <div
                 className='detailedPage_banner'
                 style={{
-                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl(
+                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
                         'original'
-                    )}${
+                    )}/${
                         window?.width <= 768
                             ? tv?.data?.poster_path
                             : tv?.data?.backdrop_path || tv?.data?.poster_path
@@ -38,13 +43,13 @@ const Tv = ({ tv }) => {
                 <div className='detailedPage_banner_content'>
                     {window?.width > 768 && (
                         <div className='detailedPage_banner_content_poster_image'>
-                            <img
-                                src={`${baseImageUrl('w300')}${
-                                    tv?.data?.poster_path || tv?.data?.backdrop_path
-                                }`}
-                                alt={tv?.data?.name || tv?.data?.title || tv?.data?.original_title}
-                                className='detailedPage_banner_content_posterimage'
-                            />
+                            {baseImageUrl(
+                                'original',
+                                tv?.data?.poster_path || tv?.data?.backdrop_path,
+                                tv?.data?.name || tv?.data?.title || tv?.data?.original_title,
+                                'detailedPage_banner_content_posterimage'
+                            )}
+
                             <div className='movie_trailer'>Watch Trailer</div>
                         </div>
                     )}
@@ -68,12 +73,11 @@ const Tv = ({ tv }) => {
                                 <div className='creators_container'>
                                     {tv?.data?.production_companies?.map((company) => (
                                         <div className='creator' key={company?.id}>
-                                            <img
-                                                src={`${baseImageUrl}${company?.logo_path}`}
-                                                alt={
-                                                    company?.name || 'company name is not specified'
-                                                }
-                                            />
+                                            {baseImageUrl(
+                                                'original',
+                                                company?.logo_path,
+                                                company?.name || 'company name not specified'
+                                            )}
                                             <p>{company?.name}</p>
                                         </div>
                                     ))}
@@ -91,14 +95,17 @@ const Tv = ({ tv }) => {
                         {media_cast?.data?.cast?.map((cast) => {
                             return (
                                 <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
-                                    <img
-                                        src={`${baseImageUrl('w200')}${cast?.profile_path}`}
-                                        alt={cast?.name || `cast ${cast?.character}`}
-                                    />
+                                    {baseImageUrl(
+                                        'w200',
+                                        cast?.profile_path,
+                                        cast?.name || cast?.character
+                                    )}
                                     <div className='castInfo'>
                                         <h1>{cast?.name}</h1>
                                         <div>
-                                            {cast?.character === null ? null : cast?.character}
+                                            {cast?.character === null || cast?.character === ''
+                                                ? null
+                                                : cast?.character}
                                         </div>
                                     </div>
                                 </Link>
@@ -114,18 +121,18 @@ const Tv = ({ tv }) => {
                                     className='season'
                                     key={season?.id}
                                 >
-                                    <img
-                                        src={`${baseImageUrl('w200')}${season?.poster_path}`}
-                                        alt={season?.name || `Season ${season?.season_number}`}
-                                    />
+                                    {baseImageUrl(
+                                        'w200',
+                                        season?.poster_path,
+                                        season?.name || `Season ${season?.season_number}`
+                                    )}
                                     <div className='seasonInfo'>
                                         <h1>Season {season?.season_number}</h1>
                                         <div>
                                             {season?.air_date === null
                                                 ? null
-                                                : moment(`${season?.air_date}`).format('YYYY')}{' '}
-                                            |{' '}
-                                            {`${season?.episode_count} ${
+                                                : formatDate('YYYY', season?.air_date)}
+                                            {` | ${season?.episode_count} ${
                                                 season?.episode_count > 1 ? 'Episodes' : 'Episode'
                                             }`}
                                         </div>
@@ -139,11 +146,11 @@ const Tv = ({ tv }) => {
                     <div className='mediaStats'>
                         <div className='mediaStats_stat'>
                             <h1>First air date</h1>
-                            <p>{moment(tv?.data?.first_air_date).format('Do MMM YYYY')}</p>
+                            <p>{formatDate('Do MMM YYYY', tv?.data?.first_air_date)}</p>
                         </div>
                         <div className='mediaStats_stat'>
                             <h1>Last air date</h1>
-                            <p>{moment(tv?.data?.last_air_date).format('Do MMM YYYY')}</p>
+                            <p>{formatDate('Do MMM YYYY', tv?.data?.last_air_date)}</p>
                         </div>
                         <div className='mediaStats_stat'>
                             <h1>Status</h1>
@@ -160,9 +167,11 @@ const Tv = ({ tv }) => {
                         <div className='mediaStats_stat'>
                             <h1>Networks</h1>
                             <p>
-                                {tv?.data?.networks?.map((network) => (
-                                    <img src={`${baseImageUrl('w200')}${network.logo_path}`} />
-                                ))}
+                                {tv?.data?.networks?.map((network) => {
+                                    {
+                                        baseImageUrl('w200', network.logo_path, network?.name);
+                                    }
+                                })}
                             </p>
                         </div>
                     </div>

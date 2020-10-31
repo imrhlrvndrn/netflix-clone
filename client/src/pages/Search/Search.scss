@@ -13,11 +13,12 @@
     }
 
     &_container {
-        padding: 4rem 2rem;
+        padding: 4rem 1rem;
         display: flex;
-        justify-content: flex-start;
+        justify-content: space-around;
         flex-wrap: wrap;
         @include tablet {
+            justify-content: flex-start;
             padding: 6rem 4rem;
         }
 

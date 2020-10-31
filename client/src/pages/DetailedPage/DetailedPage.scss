@@ -13,8 +13,8 @@
         background-attachment: fixed !important;
         background-position: center center !important;
         width: 100%;
-        height: auto;
-        min-height: 80vh;
+        height: max-content;
+        min-height: 90vh;
         padding: 0 2rem 0 2rem;
         display: flex;
         align-items: flex-end;
@@ -33,7 +33,7 @@
             flex-direction: column;
             z-index: 10;
             position: absolute;
-            padding: 0 1rem;
+            padding: 0 2rem;
             @include sm-tablet {
                 padding: 0 2rem;
                 margin-bottom: 3rem;
@@ -84,15 +84,22 @@
                     font-size: 1.5rem;
                     font-weight: 800;
                     display: flex;
-                    align-items: center;
+                    margin-bottom: 2rem;
+                    flex-direction: column;
+                    align-items: flex-start;
                     @include sm-tablet {
+                        margin-bottom: 1rem;
+                        flex-direction: row;
                         font-size: 2rem;
                     }
 
                     span {
                         font-size: inherit;
                         opacity: 0.8;
-                        margin: 0 0 0 1rem;
+                        margin: 0;
+                        @include tablet {
+                            margin: 0 0 0 1rem;
+                        }
                     }
 
                     .runtime {
@@ -138,9 +145,15 @@
                 }
 
                 .overview_text {
+                    overflow: auto;
+                    max-height: 40vh;
                     width: 100%;
                     @include sm-tablet {
                         width: 70%;
+                    }
+
+                    &::-webkit-scrollbar {
+                        display: none;
                     }
                 }
 
@@ -187,11 +200,13 @@
         width: 100%;
         height: auto;
         padding: 2rem 2rem;
+        margin-bottom: 4rem;
         min-height: max-content;
         display: flex;
         justify-content: flex-end;
         flex-direction: column-reverse;
         @include tablet {
+            margin-bottom: 0;
             padding: 4rem 6rem;
             min-height: 100vh;
             justify-content: space-between;
@@ -207,6 +222,7 @@
 
             h1 {
                 font-size: 1.5rem;
+                margin-top: 2rem;
             }
 
             &_seasons,
@@ -227,30 +243,42 @@
                     height: auto;
                     position: relative;
                     display: flex;
-                    margin: 0 4rem 4rem 0;
+                    margin: 0 2rem 2rem 0;
                     flex-direction: column;
                     transition: 1s ease-in-out;
+                    @include tablet {
+                        margin: 0 4rem 4rem 0;
+                    }
 
                     img {
                         margin-bottom: 1rem;
-                        width: 200px;
                         border-radius: 10px;
                         object-fit: cover;
-                        height: 250px;
+                        height: 200px;
+                        width: 150px;
+                        @include tablet {
+                            height: 250px;
+                            width: 200px;
+                        }
                     }
 
                     .seasonInfo,
                     .castInfo {
                         width: max-content;
-                        min-width: 200px;
-                        max-width: 200px;
+                        min-width: 150px;
+                        max-width: 150px;
                         position: absolute;
                         bottom: 0;
                         left: 10%;
-                        padding: 1rem 2rem;
+                        padding: 1rem;
                         border-radius: 10px;
                         background-color: $netflix-red;
-                        transform: translate(0, 50%);
+                        transform: translate(0, 40%);
+                        @include tablet {
+                            padding: 1rem 2rem;
+                            min-width: 200px;
+                            max-width: 200px;
+                        }
 
                         * {
                             font-size: 0.8rem;
@@ -258,7 +286,11 @@
 
                         h1 {
                             width: 80%;
-                            font-size: 1.2rem;
+                            font-size: 1rem;
+                            margin: 0;
+                            @include tablet {
+                                font-size: 1.2rem;
+                            }
                         }
                     }
                 }

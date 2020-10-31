@@ -59,6 +59,8 @@ const Row = ({ title, fetchUrl, setError, media_type }) => {
                     <div className='row_postersContainer'>
                         {results?.results?.map((result) => (
                             <Link
+                                key={result.id}
+                                onClick={() => handleTrailer(result)}
                                 className='row_postersContainer_image'
                                 to={`${
                                     result?.media_type
@@ -68,16 +70,13 @@ const Row = ({ title, fetchUrl, setError, media_type }) => {
                                         : 'movie'
                                 }/${result.id}`}
                             >
-                                <img
-                                    onClick={() => handleTrailer(result)}
-                                    key={result.id}
-                                    src={`${baseImageUrl('w200')}${
-                                        result?.poster_path ||
+                                {baseImageUrl(
+                                    'w200',
+                                    result?.poster_path ||
                                         result?.backdrop_path ||
-                                        result?.profile_path
-                                    }`}
-                                    alt={result?.name}
-                                />
+                                        result?.profile_path,
+                                    result?.name
+                                )}
                             </Link>
                         ))}
                     </div>

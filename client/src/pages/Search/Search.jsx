@@ -44,26 +44,19 @@ const Search = ({ setSearchState }) => {
             <div className='searchResults_container'>
                 {search_query?.data?.results?.map((result) => (
                     <Link
+                        key={result.id}
                         className='searchResults_container_image'
                         onClick={() => setSearchState(false)}
                         to={`/${result?.media_type ? result?.media_type : 'movie'}/${result.id}`}
                     >
-                        <img
-                            key={result.id}
-                            src={
-                                `${baseImageUrl('w200')}/${
-                                    result?.poster_path ||
-                                    result?.backdrop_path ||
-                                    result?.profile_path
-                                }` || NetflixDefault
-                            }
-                            alt={
-                                result?.name ||
+                        {baseImageUrl(
+                            'w300',
+                            result?.poster_path || result?.backdrop_path || result?.profile_path,
+                            result?.name ||
                                 result?.original_name ||
                                 result?.title ||
                                 result?.original_title
-                            }
-                        />
+                        )}
                     </Link>
                 ))}
             </div>

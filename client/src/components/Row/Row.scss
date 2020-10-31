@@ -9,6 +9,10 @@
         padding: 0 2rem;
     }
 
+    &:last-of-types {
+        margin-bottom: 4rem;
+    }
+
     &_title {
         color: #eee;
         font-size: 1.2rem;

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import axios from '../../axios';
-import requests, { baseImageUrl } from '../../requests';
+import requests, { baseImageUrlLink } from '../../requests';
+import useWindowSize from '../../utils/useWindowSize';
 
 // scss files
 import './Banner.scss';
 
 const Banner = () => {
+    const history = useHistory();
+    const _window = useWindowSize();
     const [movie, setMovie] = useState([]);
 
     useEffect(() => {
@@ -21,10 +25,9 @@ const Banner = () => {
         <div
             className='banner'
             style={{
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundImage: `url(${baseImageUrl('original')}${movie?.backdrop_path})`,
-                backgroundPosition: 'center center',
+                backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
+                    'original'
+                )}${_window?.width > 768 ? movie?.backdrop_path : movie?.poster_path})`,
             }}
         >
             <div className='banner_content'>
@@ -32,7 +35,12 @@ const Banner = () => {
                     {movie?.title || movie?.name || movie?.original_name}
                 </h1>
                 <div className='banner_content_ctaContainer'>
-                    <button className='banner_content_ctaContainer_cta'>Play</button>
+                    <button
+                        className='banner_content_ctaContainer_cta'
+                        onClick={() => history.push(`/tv/${movie?.id}`)}
+                    >
+                        Play
+                    </button>
                     <button className='banner_content_ctaContainer_cta'>My list</button>
                 </div>
                 <p className='banner_content_description'>

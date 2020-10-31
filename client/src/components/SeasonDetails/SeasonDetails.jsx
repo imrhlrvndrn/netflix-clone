@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import moment from 'moment';
 import axios from '../../axios';
 import useWindowSize from '../../utils/useWindowSize';
 import { useDataLayerValue } from '../../DataLayer';
-import { baseImageUrl, getSeasonDetails } from '../../requests';
+import { baseImageUrl, baseImageUrlLink, formatDate, getSeasonDetails } from '../../requests';
 
 // scss files
 import './SeasonDetails.scss';
@@ -34,7 +33,9 @@ const SeasonDetails = ({ match }) => {
                 style={{
                     backgroundImage: `${
                         window?.width < 1024
-                            ? `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrl}${season_details?.data?.poster_path})`
+                            ? `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
+                                  'original'
+                              )}/${season_details?.data?.poster_path})`
                             : 'black'
                     }`,
                 }}
@@ -57,10 +58,11 @@ const SeasonDetails = ({ match }) => {
                                 key={episode?.id}
                             >
                                 <div className='episodeInfo'>
-                                    <img
-                                        src={`${baseImageUrl}${episode?.still_path}`}
-                                        alt={episode?.name || `episode ${episode?.episode_number}`}
-                                    />
+                                    {baseImageUrl(
+                                        'w500',
+                                        episode?.still_path,
+                                        episode?.name || episode?.episode_number
+                                    )}
                                     <div className='episodeInfo_main'>
                                         <h1>
                                             {episode?.episode_number}.
@@ -71,9 +73,7 @@ const SeasonDetails = ({ match }) => {
                                         <div>
                                             {episode?.air_date === null
                                                 ? null
-                                                : `${moment(episode?.air_date).format(
-                                                      'MMM Do YYYY'
-                                                  )}`}
+                                                : `${formatDate('Do MMM YYYY', episode?.air_date)}`}
                                         </div>
                                     </div>
                                 </div>

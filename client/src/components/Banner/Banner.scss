@@ -9,6 +9,9 @@
     padding: 1rem;
     position: relative;
     background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     @include sm-tablet {
         padding: 2rem;
     }

@@ -1,6 +1,26 @@
+import moment from 'moment';
+import NetflixDefault from './react icons/netflix_default.jpg';
+
 const api_key = 'c42face907d2855fe0fc335e8e2dfb78';
 
-export const baseImageUrl = (size) => `https://image.tmdb.org/t/p/${size}`;
+export const baseImageUrl = (size, imgUrl, altText, classNames) => {
+    return imgUrl ? (
+        <img
+            className={classNames ? classNames : ''}
+            src={`https://image.tmdb.org/t/p/${size}/${imgUrl}`}
+            alt={altText}
+        />
+    ) : (
+        <img className={classNames ? classNames : ''} src={NetflixDefault} alt={altText} />
+    );
+};
+
+export const baseImageUrlLink = (size) => `https://image.tmdb.org/t/p/${size}`;
+
+export const formatDate = (format, date) => {
+    if (date === '' || date === undefined) return `No date`;
+    return moment(date).format(format);
+};
 
 export const calculateRuntime = (runtime) => {
     if (runtime === 0 || runtime === undefined || runtime === '' || runtime === null) return null;
