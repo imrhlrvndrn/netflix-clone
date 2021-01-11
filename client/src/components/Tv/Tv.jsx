@@ -11,10 +11,13 @@ import {
 import useWindowSize from '../../utils/useWindowSize';
 import { useDataLayerValue } from '../../DataLayer';
 
-const Tv = ({ tv }) => {
+const Tv = ({ tv, handleTrailer }) => {
     console.log('TV: ', tv);
     const [{ media_cast }, dispatch] = useDataLayerValue();
     const window = useWindowSize();
+    let queryValue =
+        tv?.data?.name || tv?.data?.original_name || tv?.data?.title || tv?.data?.original_title;
+    let query = queryValue?.toLowerCase().split(' ').join('+');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,18 +44,22 @@ const Tv = ({ tv }) => {
                 }}
             >
                 <div className='detailedPage_banner_content'>
-                    {window?.width > 768 && (
-                        <div className='detailedPage_banner_content_poster_image'>
-                            {baseImageUrl(
-                                'original',
-                                tv?.data?.poster_path || tv?.data?.backdrop_path,
-                                tv?.data?.name || tv?.data?.title || tv?.data?.original_title,
-                                'detailedPage_banner_content_posterimage'
-                            )}
-
-                            <div className='movie_trailer'>Watch Trailer</div>
-                        </div>
-                    )}
+                    <div className='detailedPage_banner_content_poster_image'>
+                        {baseImageUrl(
+                            'original',
+                            tv?.data?.poster_path || tv?.data?.backdrop_path,
+                            tv?.data?.name || tv?.data?.title || tv?.data?.original_title,
+                            'detailedPage_banner_content_posterimage'
+                        )}
+                        <a
+                            className='season_trailer'
+                            target='_blank'
+                            rel='noreferrer'
+                            href={`https://youtube.com/results?search_query=${query}+official+trailer`}
+                        >
+                            watch trailer
+                        </a>
+                    </div>
                     <div className='detailedPage_banner_content_details'>
                         <h1>
                             {tv?.data?.name || tv?.data?.original_title}

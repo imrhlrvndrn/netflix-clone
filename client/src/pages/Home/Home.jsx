@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import requests from '../../requests';
 import useWindowSize from '../../utils/useWindowSize';
 
 // React components
 import Banner from '../../components/Banner/Banner';
 import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
 import Row from '../../components/Row/Row';
-import requests from '../../requests';
 import Search from '../Search/Search';
 
 const Home = ({ searchState, setSearchState }) => {
@@ -56,7 +56,7 @@ const Home = ({ searchState, setSearchState }) => {
                         title='Documentaries'
                         fetchUrl={requests.fetchDocumentaries}
                     />
-                    {error && <ErrorHandler setError={setError} movie_name={error} />}
+                    {error && <ErrorHandler setError={setError} media_name={error} />}
                 </>
             )}
         </>

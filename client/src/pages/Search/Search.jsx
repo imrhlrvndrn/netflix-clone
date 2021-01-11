@@ -8,9 +8,6 @@ import useWindowSize from '../../utils/useWindowSize';
 // scss files
 import './Search.scss';
 
-// images
-import NetflixDefault from '../../react icons/netflix_default.jpg';
-
 const Search = ({ setSearchState }) => {
     const [{ search_query }, dispatch] = useDataLayerValue();
     const [searchQuery, setSearchQuery] = useState('');

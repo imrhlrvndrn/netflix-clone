@@ -30,11 +30,11 @@
         &_content {
             width: 100%;
             display: flex;
-            flex-direction: column;
+            flex-direction: column-reverse;
             z-index: 10;
             position: absolute;
             padding: 0 2rem;
-            @include sm-tablet {
+            @include tablet {
                 padding: 0 2rem;
                 margin-bottom: 3rem;
                 flex-direction: row;
@@ -45,36 +45,51 @@
             }
 
             &_poster_image {
-                width: 300px;
-                height: 450px;
-                margin-right: 2rem;
                 position: relative;
+                @include tablet {
+                    width: 300px;
+                    height: 450px;
+                    margin-right: 2rem;
+                }
 
                 .movie_trailer,
                 .season_trailer {
+                    display: block;
                     width: 100%;
                     padding: 1.7rem 2rem 1.5rem 2rem;
                     text-align: center;
-                    border-radius: 0 0 5px 5px;
-                    z-index: -1;
+                    border-radius: 5px;
                     font-weight: 600;
                     text-transform: uppercase;
                     letter-spacing: 5px;
                     background-color: $netflix-red;
                     color: white;
-                    position: absolute;
-                    bottom: 8px;
-                    transform: translate(0, 100%);
+                    position: relative;
+                    @include tablet {
+                        z-index: -1;
+                        position: absolute;
+                        bottom: 8px;
+                        left: 0;
+                        border-radius: 0 0 5px 5px;
+                        transform: translate(0, 100%);
+                    }
                 }
             }
+
             &_posterimage {
                 width: 300px;
                 height: 450px;
                 border-radius: 10px;
                 object-fit: contain;
+                display: none;
+                @include tablet {
+                    display: block;
+                }
             }
 
             &_details {
+                margin-bottom: 2rem;
+
                 * {
                     margin-bottom: 1rem;
                     color: white;

@@ -15,6 +15,7 @@ export const baseImageUrl = (size, imgUrl, altText, classNames) => {
     );
 };
 
+// Used in DetailedPage for responsive background image
 export const baseImageUrlLink = (size) => `https://image.tmdb.org/t/p/${size}`;
 
 export const formatDate = (format, date) => {
@@ -37,14 +38,14 @@ export const calculateRuntime = (runtime) => {
         const getMinutes =
             Math.floor(runtime[0] % 60) === 0 ? '' : `${Math.floor(runtime[0] % 60)}min`;
 
-        return typeof getHours === NaN ? null : (
+        return typeof isNaN(getHours) ? null : (
             <p className='runtime'>{`${getHours} ${getMinutes}`}</p>
         );
     } else {
         const getHours = Math.floor(runtime / 60) === 0 ? '' : `${Math.floor(runtime / 60)}h`;
         const getMinutes = Math.floor(runtime % 60) === 0 ? '' : `${Math.floor(runtime % 60)}min`;
 
-        return getHours === NaN ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
+        return isNaN(getHours) ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
     }
 };
 

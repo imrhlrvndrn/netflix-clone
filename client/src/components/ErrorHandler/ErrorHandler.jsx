@@ -3,8 +3,8 @@ import React from 'react';
 // scss files
 import './ErrorHandler.scss';
 
-const ErrorHandler = ({ setError, movie_name }) => {
-    const query = movie_name?.toLowerCase().split(' ').join('+');
+const ErrorHandler = ({ setError, media_name }) => {
+    const query = media_name?.toLowerCase().split(' ').join('+');
 
     return (
         <div className='error'>

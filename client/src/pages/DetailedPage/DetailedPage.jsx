@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
 import { useDataLayerValue } from '../../DataLayer';
 import { getMedia } from '../../requests';

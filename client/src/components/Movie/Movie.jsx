@@ -14,6 +14,12 @@ import { Link } from 'react-router-dom';
 const Movie = ({ movie }) => {
     const _window = useWindowSize();
     const [{ media_cast }, dispatch] = useDataLayerValue();
+    let queryValue =
+        movie?.data?.name ||
+        movie?.data?.original_name ||
+        movie?.data?.title ||
+        movie?.data?.original_title;
+    let query = queryValue?.toLowerCase().split(' ').join('+');
     console.log('Movie data: ', movie);
 
     useEffect(() => {
@@ -41,20 +47,25 @@ const Movie = ({ movie }) => {
                 }}
             >
                 <div className='detailedPage_banner_content'>
-                    {_window?.width > 768 && (
-                        <div className='detailedPage_banner_content_poster_image'>
-                            {baseImageUrl(
-                                'original',
-                                movie?.data?.poster_path || movie?.data?.backdrop_path,
-                                movie?.data?.name ||
-                                    movie?.data?.original_name ||
-                                    movie?.data?.title ||
-                                    movie?.data?.original_title,
-                                'detailedPage_banner_content_posterimage'
-                            )}
-                            <div className='movie_trailer'>Watch Trailer</div>
-                        </div>
-                    )}
+                    <div className='detailedPage_banner_content_poster_image'>
+                        {baseImageUrl(
+                            'original',
+                            movie?.data?.poster_path || movie?.data?.backdrop_path,
+                            movie?.data?.name ||
+                                movie?.data?.original_name ||
+                                movie?.data?.title ||
+                                movie?.data?.original_title,
+                            'detailedPage_banner_content_posterimage'
+                        )}
+                        <a
+                            className='movie_trailer'
+                            target='_blank'
+                            rel='noreferrer'
+                            href={`https://youtube.com/results?search_query=${query}+official+trailer`}
+                        >
+                            watch trailer
+                        </a>
+                    </div>
                     <div className='detailedPage_banner_content_details'>
                         <h1>
                             {movie?.data?.title || movie?.data?.original_title}
@@ -75,12 +86,15 @@ const Movie = ({ movie }) => {
                                 <div className='creators_container'>
                                     {movie?.data?.production_companies?.map((company) => (
                                         <div className='creator'>
-                                            <img
-                                                src={`${baseImageUrl}${company?.logo_path}`}
-                                                alt={
-                                                    company?.name || 'company name is not specified'
-                                                }
-                                            />
+                                            {company?.logo_path && (
+                                                <img
+                                                    src={`${baseImageUrl}${company?.logo_path}`}
+                                                    alt={
+                                                        company?.name ||
+                                                        'company name is not specified'
+                                                    }
+                                                />
+                                            )}
                                             <p>{company?.name}</p>
                                         </div>
                                     ))}

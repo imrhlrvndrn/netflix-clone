@@ -74,7 +74,13 @@ const App = () => {
                 <Route
                     exact
                     path='/:mediaType/:mediaId/season/:seasonNumber'
-                    component={SeasonDetails}
+                    render={(props) => (
+                        <SeasonDetails
+                            {...props}
+                            setSearchState={setSearchState}
+                            searchState={searchState}
+                        />
+                    )}
                 />
             </Switch>
         </Router>
