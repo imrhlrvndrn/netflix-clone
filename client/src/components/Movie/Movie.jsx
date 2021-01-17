@@ -71,7 +71,7 @@ const Movie = ({ movie }) => {
                             {movie?.data?.title || movie?.data?.original_title}
                             {movie?.data?.release_date !== '' &&
                                 ` (${formatDate('YYYY', movie?.data?.release_date)})`}
-                            {_window?.width > 1024 && calculateRuntime(movie?.data?.runtime)}
+                            {_window?.width > 768 && calculateRuntime(movie?.data?.runtime)}
                             {movie?.data?.adult && <span className='adult'>A</span>}
                         </h1>
                         <div className='genre_container'>

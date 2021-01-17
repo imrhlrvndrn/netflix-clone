@@ -63,9 +63,10 @@ const Tv = ({ tv, handleTrailer }) => {
                     <div className='detailedPage_banner_content_details'>
                         <h1>
                             {tv?.data?.name || tv?.data?.original_title}
-                            {tv?.data?.episode_run_time &&
-                                window?.width > 768 &&
-                                calculateRuntime(tv?.data?.episode_run_time)}
+                            {tv?.data?.episode_run_time ||
+                                (tv?.data?.episode_run_time.length &&
+                                    window?.width > 768 &&
+                                    calculateRuntime(tv?.data?.episode_run_time))}
                             {tv?.data?.adult && <span className='adult'>A</span>}
                         </h1>
                         <div className='genre_container'>

@@ -24,6 +24,7 @@ export const formatDate = (format, date) => {
 };
 
 export const calculateRuntime = (runtime) => {
+    console.log('Type of runtime: ', typeof runtime);
     if (runtime === 0 || runtime === undefined || runtime === '' || runtime === null) return null;
     if (typeof runtime === 'object') {
         if (
@@ -38,14 +39,14 @@ export const calculateRuntime = (runtime) => {
         const getMinutes =
             Math.floor(runtime[0] % 60) === 0 ? '' : `${Math.floor(runtime[0] % 60)}min`;
 
-        return typeof isNaN(getHours) ? null : (
-            <p className='runtime'>{`${getHours} ${getMinutes}`}</p>
-        );
+        console.log(`Value of runtime(object): ${getHours} ${getMinutes}`);
+        return <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
     } else {
         const getHours = Math.floor(runtime / 60) === 0 ? '' : `${Math.floor(runtime / 60)}h`;
         const getMinutes = Math.floor(runtime % 60) === 0 ? '' : `${Math.floor(runtime % 60)}min`;
 
-        return isNaN(getHours) ? null : <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
+        console.log(`Value of runtime(everything else): ${getHours} ${getMinutes}`);
+        return <p className='runtime'>{`${getHours} ${getMinutes}`}</p>;
     }
 };
 
