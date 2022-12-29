@@ -1,7 +1,7 @@
 import moment from 'moment';
 import NetflixDefault from './react icons/netflix_default.jpg';
 
-const api_key = 'c42face907d2855fe0fc335e8e2dfb78';
+const api_key = process.env.REACT_APP_TMDB_API_KEY;
 
 export const baseImageUrl = (size, imgUrl, altText, classNames) => {
     return imgUrl ? (

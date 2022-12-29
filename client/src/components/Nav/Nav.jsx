@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import { searchMedia } from '../../requests';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 import useWindowSize from '../../utils/useWindowSize';
 
 // scss files
 import './Nav.scss';
 
 // images
-import avatar from './netflix_avatar.jpg';
 import NetflixLogo from './NetflixLogo';
 import HomeIcon from '../../react icons/HomeIcon';
 import SearchIcon from '../../react icons/SearchIcon';
@@ -63,7 +62,7 @@ const Nav = ({ setSearchState }) => {
                         id='searchbar'
                         placeholder='Search for movies and tv shows'
                     />
-                    <img className='nav_avatar' src={avatar} alt='netflix avatar' />
+                    <img className='nav_avatar' src='/netflix_avatar.jpg' alt='netflix avatar' />
                 </>
             )}
 

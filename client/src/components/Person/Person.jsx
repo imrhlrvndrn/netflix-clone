@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 import {
     baseImageUrl,
     baseImageUrlLink,
@@ -53,10 +53,12 @@ const Person = () => {
                     <div className='detailedPage_banner_content_details'>
                         <h1>
                             {person?.data?.name}
-                            <span>
-                                ({calculateAge(formatDate('YYYY', person?.data?.birthday))} years
-                                old )
-                            </span>
+                            {person?.data?.birthday && (
+                                <span>
+                                    ({calculateAge(formatDate('YYYY', person?.data?.birthday))}{' '}
+                                    years old )
+                                </span>
+                            )}
                         </h1>
                         <p className='overview_text'>
                             {readmore
@@ -79,7 +81,7 @@ const Person = () => {
                         {person_known_for?.data?.cast?.map((cast) => {
                             return (
                                 <Link
-                                    to={`/${cast.media_type}/${cast?.id}`}
+                                    to={`/${cast?.media_type}/${cast?.id}`}
                                     className='cast'
                                     key={cast?.id}
                                 >

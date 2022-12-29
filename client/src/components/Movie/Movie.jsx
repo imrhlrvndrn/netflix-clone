@@ -8,7 +8,7 @@ import {
     formatDate,
     getCast,
 } from '../../requests';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 import { Link } from 'react-router-dom';
 
 const Movie = ({ movie }) => {

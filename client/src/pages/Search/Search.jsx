@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../axios';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 import { baseImageUrl, searchMedia } from '../../requests';
 import useWindowSize from '../../utils/useWindowSize';
 

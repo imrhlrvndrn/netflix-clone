@@ -9,7 +9,7 @@ import {
     getCast,
 } from '../../requests';
 import useWindowSize from '../../utils/useWindowSize';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 
 const Tv = ({ tv, handleTrailer }) => {
     console.log('TV: ', tv);

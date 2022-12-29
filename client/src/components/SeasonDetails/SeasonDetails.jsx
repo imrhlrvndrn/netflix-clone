@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import axios from '../../axios';
 import useWindowSize from '../../utils/useWindowSize';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 import { baseImageUrl, baseImageUrlLink, formatDate, getSeasonDetails } from '../../requests';
 
 // scss files

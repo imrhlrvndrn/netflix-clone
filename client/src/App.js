@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { getLanguages } from './requests';
-import { useDataLayerValue } from './DataLayer';
+import { useDataLayerValue } from './context/data.context';
 import axios from './axios';
 
 // scss files

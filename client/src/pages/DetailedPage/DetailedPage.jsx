@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
-import { useDataLayerValue } from '../../DataLayer';
+import { useDataLayerValue } from '../../context/data.context';
 import { getMedia } from '../../requests';
 
 // scss files
