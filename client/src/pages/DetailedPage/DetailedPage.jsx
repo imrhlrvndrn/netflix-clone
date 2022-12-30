@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
 import { useDataLayerValue } from '../../context/data.context';
-import { getMedia } from '../../requests';
+import { generateMediaUrl } from '../../utils';
 
 // scss files
 import './DetailedPage.scss';
 
 // React components
-import Movie from '../../components/Movie/Movie';
-import Person from '../../components/Person/Person';
-import Tv from '../../components/Tv/Tv';
-import Search from '../Search/Search';
+import { Search } from '../';
+import { Movie, Tv, Person } from '../../components';
 
-const DetailedPage = ({ match, searchState, setSearchState }) => {
+export const DetailedPage = ({ match, searchState, setSearchState }) => {
     const [{ movie, tv, person }, dispatch] = useDataLayerValue();
     const mediaType = match.params.mediaType || 'movie';
     const mediaId = match.params.mediaId;
-    let constructedUrl = getMedia(mediaType, mediaId);
+    let constructedUrl = generateMediaUrl(mediaType, mediaId);
 
     console.log(`detailedpage match object: `, match);
 
@@ -34,7 +32,17 @@ const DetailedPage = ({ match, searchState, setSearchState }) => {
             });
         };
 
-        fetchData();
+        (async () => await fetchData())();
+        return () =>
+            dispatch({
+                type:
+                    mediaType === 'movie'
+                        ? 'SET_MOVIE'
+                        : mediaType === 'tv'
+                        ? 'SET_TV'
+                        : 'SET_PERSON',
+                result: null,
+            });
     }, [mediaType, mediaId, constructedUrl]);
 
     useEffect(() => {
@@ -43,7 +51,7 @@ const DetailedPage = ({ match, searchState, setSearchState }) => {
             left: 0,
             behavior: 'smooth',
         });
-    }, []);
+    }, [mediaType, mediaId, constructedUrl]);
 
     // console.log('mediaType:', mediaType);
 
@@ -61,5 +69,3 @@ const DetailedPage = ({ match, searchState, setSearchState }) => {
         </div>
     );
 };
-
-export default DetailedPage;

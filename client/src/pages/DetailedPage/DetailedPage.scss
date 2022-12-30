@@ -125,10 +125,11 @@
                         width: max-content;
                         padding: 0.5rem 2rem;
                         background-color: rgba(0, 0, 0, 0.4);
+                        
                         &:hover {
                             transition: 0.4s ease-in-out;
                             background-color: white;
-                            color: black;
+                            color: $black;
                         }
                     }
 
@@ -155,7 +156,7 @@
                         &:hover {
                             transition: 0.4s ease-in-out;
                             background-color: white;
-                            color: black;
+                            color: $black;
                         }
                     }
                 }
@@ -202,7 +203,7 @@
 
                             p {
                                 margin: 0;
-                                color: black;
+                                color: $black;
                             }
                         }
                     }

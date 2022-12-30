@@ -3,7 +3,7 @@ import React from 'react';
 // scss files
 import './ErrorHandler.scss';
 
-const ErrorHandler = ({ setError, media_name }) => {
+export const ErrorHandler = ({ setError, media_name }) => {
     const query = media_name?.toLowerCase().split(' ').join('+');
 
     return (
@@ -29,5 +29,3 @@ const ErrorHandler = ({ setError, media_name }) => {
         </div>
     );
 };
-
-export default ErrorHandler;

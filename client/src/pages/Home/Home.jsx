@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import requests from '../../requests';
-import useWindowSize from '../../utils/useWindowSize';
 
 // React components
-import Banner from '../../components/Banner/Banner';
-import ErrorHandler from '../../components/ErrorHandler/ErrorHandler';
-import Row from '../../components/Row/Row';
-import Search from '../Search/Search';
+import { Search } from '../';
+import { Row, ErrorHandler, Banner } from '../../components';
 
-const Home = ({ searchState, setSearchState }) => {
-    // const _window = useWindowSize();
+export const Home = ({ searchState, setSearchState }) => {
     const [error, setError] = useState('');
 
     return (
@@ -62,5 +58,3 @@ const Home = ({ searchState, setSearchState }) => {
         </>
     );
 };
-
-export default Home;

@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../axios';
-import {
-    baseImageUrl,
-    baseImageUrlLink,
-    calculateRuntime,
-    formatDate,
-    getCast,
-} from '../../requests';
-import useWindowSize from '../../utils/useWindowSize';
+import { getCast } from '../../requests';
+import { baseImageUrl, baseImageUrlLink, calculateRuntime, formatDate } from '../../utils';
+import { useWindowSize } from '../../hooks';
 import { useDataLayerValue } from '../../context/data.context';
+import { MediaBanner } from '../MediaBanner/MediaBanner';
 
-const Tv = ({ tv, handleTrailer }) => {
+export const Tv = ({ tv, handleTrailer }) => {
     console.log('TV: ', tv);
     const [{ media_cast }, dispatch] = useDataLayerValue();
     const window = useWindowSize();
@@ -31,71 +27,7 @@ const Tv = ({ tv, handleTrailer }) => {
 
     return (
         <>
-            <div
-                className='detailedPage_banner'
-                style={{
-                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
-                        'original'
-                    )}/${
-                        window?.width <= 768
-                            ? tv?.data?.poster_path
-                            : tv?.data?.backdrop_path || tv?.data?.poster_path
-                    })`,
-                }}
-            >
-                <div className='detailedPage_banner_content'>
-                    <div className='detailedPage_banner_content_poster_image'>
-                        {baseImageUrl(
-                            'original',
-                            tv?.data?.poster_path || tv?.data?.backdrop_path,
-                            tv?.data?.name || tv?.data?.title || tv?.data?.original_title,
-                            'detailedPage_banner_content_posterimage'
-                        )}
-                        <a
-                            className='season_trailer'
-                            target='_blank'
-                            rel='noreferrer'
-                            href={`https://youtube.com/results?search_query=${query}+official+trailer`}
-                        >
-                            watch trailer
-                        </a>
-                    </div>
-                    <div className='detailedPage_banner_content_details'>
-                        <h1>
-                            {tv?.data?.name || tv?.data?.original_title}
-                            {tv?.data?.episode_run_time ||
-                                (tv?.data?.episode_run_time.length &&
-                                    window?.width > 768 &&
-                                    calculateRuntime(tv?.data?.episode_run_time))}
-                            {tv?.data?.adult && <span className='adult'>A</span>}
-                        </h1>
-                        <div className='genre_container'>
-                            {tv?.data?.genres?.map((genre) => (
-                                <p className='genre'>{genre.name}</p>
-                            ))}
-                        </div>
-                        <p className='overview_text'>{tv?.data?.overview}</p>
-                        {window?.width > 768 && (
-                            <div className='creators'>
-                                <h2>Production Companies</h2>
-                                <div className='creators_container'>
-                                    {tv?.data?.production_companies?.map((company) => (
-                                        <div className='creator' key={company?.id}>
-                                            {baseImageUrl(
-                                                'original',
-                                                company?.logo_path,
-                                                company?.name || 'company name not specified'
-                                            )}
-                                            <p>{company?.name}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-                <div className='fadeElement'></div>
-            </div>
+            <MediaBanner media={tv} />
             <section className='detailedPage_mediaInfo'>
                 <div className='detailedPage_mediaInfo_left'>
                     <h1>Cast</h1>
@@ -188,5 +120,3 @@ const Tv = ({ tv, handleTrailer }) => {
         </>
     );
 };
-
-export default Tv;

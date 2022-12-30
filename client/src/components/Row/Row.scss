@@ -32,32 +32,6 @@
             display: none;
         }
 
-        &_image {
-            cursor: pointer;
-            width: 100%;
-            max-height: 200px;
-            margin-right: 1rem;
-            transition: transform 0.4s;
-            @include phone {
-                max-height: 300px;
-            }
-            transition: 0.4s ease-in-out;
-
-            img {
-                width: 100px;
-                height: 150px;
-                object-fit: cover;
-                object-position: top center;
-                transition: 0.4s ease-in-out;
-                @include sm-tablet {
-                    width: 200px;
-                    height: 300px;
-                }
-            }
-
-            &:hover {
-                transform: scale(1.08);
-            }
-        }
+        
     }
 }

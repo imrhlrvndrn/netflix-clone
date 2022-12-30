@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from '../../axios';
-import requests, { baseImageUrlLink } from '../../requests';
-import useWindowSize from '../../utils/useWindowSize';
+import requests from '../../requests';
+import { baseImageUrlLink } from '../../utils';
+import { useWindowSize } from '../../hooks';
 
 // scss files
 import './Banner.scss';
 
-const Banner = () => {
+export const Banner = () => {
     const history = useHistory();
     const _window = useWindowSize();
     const [movie, setMovie] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const res = await axios.get(requests.fetchNetflixOriginals);
-            setMovie(res.data.results[Math.floor(Math.random() * res.data.results.length - 1)]);
+            const res = await axios.get(requests?.fetchNetflixOriginals);
+            setMovie(
+                res?.data?.results?.[Math?.floor(Math?.random() * res?.data?.results?.length - 1)]
+            );
         };
 
         fetchData();
@@ -25,7 +28,7 @@ const Banner = () => {
         <div
             className='banner'
             style={{
-                backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
+                backgroundImage: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #0e0e0e), url(${baseImageUrlLink(
                     'original'
                 )}${_window?.width > 768 ? movie?.backdrop_path : movie?.poster_path})`,
             }}
@@ -53,5 +56,3 @@ const Banner = () => {
         </div>
     );
 };
-
-export default Banner;

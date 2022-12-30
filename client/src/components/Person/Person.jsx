@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDataLayerValue } from '../../context/data.context';
-import {
-    baseImageUrl,
-    baseImageUrlLink,
-    calculateAge,
-    formatDate,
-    getCombinedCredits,
-} from '../../requests';
-import useWindowSize from '../../utils/useWindowSize';
+import { getCombinedCredits } from '../../requests';
+import { baseImageUrl, baseImageUrlLink, calculateAge, formatDate } from '../../utils';
+import { useWindowSize } from '../../hooks';
 import axios from '../../axios';
 import { Link } from 'react-router-dom';
 
-const Person = () => {
+export const Person = () => {
     const [readmore, setReadmore] = useState(false);
     const _window = useWindowSize();
     const [{ person, person_known_for }, dispatch] = useDataLayerValue();
@@ -22,7 +17,9 @@ const Person = () => {
             dispatch({ type: 'SET_PERSON_KNOWN_FOR', result: response });
         };
 
-        fetchData();
+        (async () => await fetchData())();
+
+        return () => dispatch({ type: 'SET_PERSON_KNOWN_FOR', result: null });
     }, [person]);
 
     console.log('Person', person);
@@ -34,9 +31,9 @@ const Person = () => {
             <div
                 className='detailedPage_banner'
                 style={{
-                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
+                    background: `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #0e0e0e), url(${baseImageUrlLink(
                         'original'
-                    )}/${_window?.width <= 768 ? person?.data?.profile_path : 'black'})`,
+                    )}/${_window?.width <= 768 ? person?.data?.profile_path : '#0e0e0e'})`,
                 }}
             >
                 <div className='detailedPage_banner_content'>
@@ -78,38 +75,44 @@ const Person = () => {
                 <div className='detailedPage_mediaInfo_left'>
                     <h1>Known for</h1>
                     <div className='detailedPage_mediaInfo_left_casts'>
-                        {person_known_for?.data?.cast?.map((cast) => {
-                            return (
-                                <Link
-                                    to={`/${cast?.media_type}/${cast?.id}`}
-                                    className='cast'
-                                    key={cast?.id}
-                                >
-                                    {baseImageUrl(
-                                        'w300',
-                                        cast?.poster_path || cast?.backdrop_path,
-                                        cast?.name
-                                    )}
-                                    <div className='castInfo'>
-                                        <h1>
-                                            {cast?.name ||
-                                                cast?.original_name ||
-                                                cast?.title ||
-                                                cast?.original_title}
-                                        </h1>
+                        {person_known_for?.data?.cast
+                            ?.sort(
+                                (a, b) =>
+                                    +formatDate('YYYY', b?.first_air_date || b?.release_date) -
+                                    +formatDate('YYYY', a?.first_air_date || a?.release_date)
+                            )
+                            ?.map((cast) => {
+                                return (
+                                    <Link
+                                        to={`/${cast?.media_type}/${cast?.id}`}
+                                        className='cast'
+                                        key={cast?.id}
+                                    >
+                                        {baseImageUrl(
+                                            'w300',
+                                            cast?.poster_path || cast?.backdrop_path,
+                                            cast?.name
+                                        )}
+                                        <div className='castInfo'>
+                                            <h1>
+                                                {cast?.name ||
+                                                    cast?.original_name ||
+                                                    cast?.title ||
+                                                    cast?.original_title}
+                                            </h1>
 
-                                        <div>
-                                            {formatDate(
-                                                'YYYY',
-                                                cast?.first_air_date || cast?.release_date
-                                            )}
-                                            {cast?.episode_count &&
-                                                ` | ${cast?.episode_count} episodes`}
+                                            <div>
+                                                {formatDate(
+                                                    'YYYY',
+                                                    cast?.first_air_date || cast?.release_date
+                                                )}
+                                                {cast?.episode_count &&
+                                                    ` | ${cast?.episode_count} episodes`}
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
+                                    </Link>
+                                );
+                            })}
                     </div>
                 </div>
                 <div className='detailedPage_mediaInfo_right'>
@@ -158,5 +161,3 @@ const Person = () => {
         </>
     );
 };
-
-export default Person;

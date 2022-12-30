@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from '../../axios';
 import { searchMedia } from '../../requests';
 import { useDataLayerValue } from '../../context/data.context';
-import useWindowSize from '../../utils/useWindowSize';
+import { useWindowSize } from '../../hooks';
 
 // scss files
 import './Nav.scss';
@@ -14,20 +14,11 @@ import HomeIcon from '../../react icons/HomeIcon';
 import SearchIcon from '../../react icons/SearchIcon';
 import LibraryIcon from '../../react icons/LibraryIcon';
 
-const Nav = ({ setSearchState }) => {
-    const [{ search_query }, dispatch] = useDataLayerValue();
+export const Nav = ({ setSearchState }) => {
+    const [_, dispatch] = useDataLayerValue();
     const history = useHistory();
     const _window = useWindowSize();
     const [searchQuery, setSearchQuery] = useState('');
-    const [navBackground, setNavBackground] = useState(false);
-
-    useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) setNavBackground(true);
-            else setNavBackground(false);
-        });
-        return () => window.removeEventListener('scroll', () => {});
-    }, []);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,7 +30,7 @@ const Nav = ({ setSearchState }) => {
     }, [searchQuery]);
 
     return (
-        <div className={`nav ${navBackground && 'darkBackground'}`}>
+        <div className='nav'>
             {_window?.width > 1024 && (
                 <>
                     <Link to='/' onClick={() => setSearchState(false)}>
@@ -55,7 +46,7 @@ const Nav = ({ setSearchState }) => {
                         }
                         value={searchQuery}
                         onChange={(e) => {
-                            setSearchQuery(e.target.value);
+                            setSearchQuery(e?.target?.value);
                         }}
                         type='text'
                         name='searchbar'
@@ -74,7 +65,7 @@ const Nav = ({ setSearchState }) => {
                     <button onClick={() => history.push('/search')}>
                         <SearchIcon />
                     </button>
-                    <button onClick={() => history.push('/library')}>
+                    <button onClick={() => history.push('/watchlist')}>
                         <LibraryIcon />
                     </button>
                 </>
@@ -82,5 +73,3 @@ const Nav = ({ setSearchState }) => {
         </div>
     );
 };
-
-export default Nav;

@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react';
 import axios from '../../axios';
-import useWindowSize from '../../utils/useWindowSize';
+import { useWindowSize } from '../../hooks';
+import { getSeasonDetails } from '../../requests';
 import { useDataLayerValue } from '../../context/data.context';
-import { baseImageUrl, baseImageUrlLink, formatDate, getSeasonDetails } from '../../requests';
+import { baseImageUrl, baseImageUrlLink, formatDate } from '../../utils';
 
 // scss files
 import './SeasonDetails.scss';
-import Search from '../../pages/Search/Search';
 
-const SeasonDetails = ({ match, searchState, setSearchState }) => {
-    const [{ tv, season_details }, dispatch] = useDataLayerValue();
+// pages
+import { Search } from '../../pages';
+
+export const SeasonDetails = ({ match, searchState, setSearchState }) => {
+    const [{ season_details }, dispatch] = useDataLayerValue();
     const window = useWindowSize();
-    const mediaId = match.params.mediaId;
-    const season_number = match.params.seasonNumber;
+    const mediaId = match?.params?.mediaId;
+    const season_number = match?.params?.seasonNumber;
 
     console.log('seasondetails match: ', match);
 
@@ -38,10 +41,10 @@ const SeasonDetails = ({ match, searchState, setSearchState }) => {
                         style={{
                             backgroundImage: `${
                                 window?.width < 1024
-                                    ? `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #000), url(${baseImageUrlLink(
+                                    ? `linear-gradient(180deg, rgba(0,0,0,0.4), rgba(0,0,0,0.6), #0e0e0e), url(${baseImageUrlLink(
                                           'original'
                                       )}/${season_details?.data?.poster_path})`
-                                    : 'black'
+                                    : '#0e0e0e'
                             }`,
                         }}
                     >
@@ -101,5 +104,3 @@ const SeasonDetails = ({ match, searchState, setSearchState }) => {
         </>
     );
 };
-
-export default SeasonDetails;

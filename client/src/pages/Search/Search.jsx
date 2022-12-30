@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../axios';
 import { useDataLayerValue } from '../../context/data.context';
-import { baseImageUrl, searchMedia } from '../../requests';
-import useWindowSize from '../../utils/useWindowSize';
+import { searchMedia } from '../../requests';
+import { baseImageUrl } from '../../utils';
+import { useWindowSize } from '../../hooks';
 
 // scss files
 import './Search.scss';
 
-const Search = ({ setSearchState }) => {
+export const Search = ({ setSearchState }) => {
     const [{ search_query }, dispatch] = useDataLayerValue();
     const [searchQuery, setSearchQuery] = useState('');
     const _window = useWindowSize();
@@ -21,6 +22,13 @@ const Search = ({ setSearchState }) => {
 
         fetchData();
     }, [searchQuery]);
+
+    useEffect(() => {
+        const captureEsc = (event) => event?.key === 'Escape' && setSearchState(false);
+        window.addEventListener('keydown', captureEsc);
+
+        return () => window.removeEventListener('keydown', captureEsc);
+    }, []);
 
     console.log('search results: ', search_query);
 
@@ -60,5 +68,3 @@ const Search = ({ setSearchState }) => {
         </div>
     );
 };
-
-export default Search;

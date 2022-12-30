@@ -27,7 +27,7 @@
         width: 600px;
         min-width: 270px;
         height: 300px;
-        background-color: black;
+        background-color: $black;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -52,7 +52,7 @@
                 padding: 1rem 2rem;
                 text-align: center;
                 text-transform: uppercase;
-                color: black;
+                color: $black;
 
                 &:last-child {
                     background-color: $netflix-red;
