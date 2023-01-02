@@ -53,7 +53,12 @@ export const Nav = ({ setSearchState }) => {
                         id='searchbar'
                         placeholder='Search for movies and tv shows'
                     />
-                    <img className='nav_avatar' src='/netflix_avatar.jpg' alt='netflix avatar' />
+                    <img
+                        onClick={() => history.push('/watchlist')}
+                        className='nav_avatar'
+                        src='/netflix_avatar.jpg'
+                        alt='netflix avatar'
+                    />
                 </>
             )}
 

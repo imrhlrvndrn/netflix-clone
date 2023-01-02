@@ -42,9 +42,9 @@ export const Banner = () => {
                         className='banner_content_ctaContainer_cta'
                         onClick={() => history.push(`/tv/${movie?.id}`)}
                     >
-                        Play
+                        More info
                     </button>
-                    <button className='banner_content_ctaContainer_cta'>My list</button>
+                    <button className='banner_content_ctaContainer_cta'>Add to watchlist</button>
                 </div>
                 <p className='banner_content_description'>
                     {movie?.overview?.length > 150

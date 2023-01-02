@@ -10,7 +10,7 @@
     align-items: center;
     height: 60px;
     // background-color: $black;
-    z-index: 1000;
+    z-index: 1;
     backdrop-filter: blur(5px);
     @include tablet {
         position: fixed;

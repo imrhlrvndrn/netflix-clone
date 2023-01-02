@@ -7,6 +7,7 @@ export const initialState = {
     person_known_for: null,
     season_details: null,
     user: null,
+    watchlist: [],
 };
 
 const reducer = (state, action) => {
@@ -33,6 +34,38 @@ const reducer = (state, action) => {
 
         case 'SET_CAST':
             return { ...state, media_cast: action.result };
+
+        case 'SET_WATCHLIST': {
+            return { ...state, watchlist: JSON.parse(localStorage.getItem('watchlist')) || [] };
+        }
+
+        case 'UPDATE_WATCHLIST': {
+            let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+            switch (action?.operation) {
+                case 'ADD_TO_WATCHLIST': {
+                    watchlist = [...watchlist, action?.media];
+                    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+
+                    return {
+                        ...state,
+                        watchlist,
+                    };
+                }
+
+                case 'REMOVE_FROM_WATCHLIST': {
+                    watchlist = watchlist.filter((media) => media?.id !== action?.media_id);
+                    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+
+                    return {
+                        ...state,
+                        watchlist,
+                    };
+                }
+
+                default:
+                    return state;
+            }
+        }
 
         default:
             return state;

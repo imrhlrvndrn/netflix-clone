@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDataLayerValue } from './context/data.context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 // scss files
@@ -10,6 +11,11 @@ import { Home, DetailedPage, Search } from './pages';
 
 const App = () => {
     const [searchState, setSearchState] = useState(false);
+    const [_, dispatch] = useDataLayerValue();
+
+    useEffect(() => {
+        dispatch({ type: 'SET_WATCHLIST' });
+    }, []);
 
     return (
         <Router>

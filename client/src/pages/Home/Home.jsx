@@ -17,7 +17,7 @@ export const Home = ({ searchState, setSearchState }) => {
                     <Banner />
                     <Row
                         setError={setError}
-                        title='Neflix Originals'
+                        title='Only on neflix'
                         fetchUrl={requests.fetchNetflixOriginals}
                         media_type='tv'
                     />

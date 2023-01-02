@@ -16,6 +16,7 @@
     &_title {
         color: #eee;
         font-size: 1.2rem;
+        text-transform: capitalize;
         @include sm-tablet {
             font-size: 2rem;
         }
@@ -25,13 +26,11 @@
         display: flex;
         align-items: center;
         overflow-y: hidden;
-        overflow-x: scroll;
+        overflow-x: auto;
         padding: 1rem 0;
 
         &::-webkit-scrollbar {
-            display: none;
+            height: 5px;
         }
-
-        
     }
 }

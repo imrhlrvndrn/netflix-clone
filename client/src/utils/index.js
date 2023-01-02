@@ -26,6 +26,11 @@ export const formatDate = (format, date) => {
     return moment(date).format(format);
 };
 
+export const limit_char = (sentence, limit) =>
+    sentence?.length > limit && limit
+        ? `${sentence.split('').slice(0, limit).join('')}...`
+        : sentence;
+
 export const calculateRuntime = (runtime) => {
     console.log('Type of runtime: ', typeof runtime);
     if (runtime === 0 || runtime === undefined || runtime === '' || runtime === null) return null;

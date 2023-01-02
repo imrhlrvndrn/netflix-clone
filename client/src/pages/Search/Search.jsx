@@ -20,7 +20,7 @@ export const Search = ({ setSearchState }) => {
             dispatch({ type: 'SET_SEARCH_QUERY', result: response });
         };
 
-        fetchData();
+        (async () => searchQuery && (await fetchData()))();
     }, [searchQuery]);
 
     useEffect(() => {
