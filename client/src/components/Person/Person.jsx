@@ -6,6 +6,9 @@ import { useWindowSize } from '../../hooks';
 import axios from '../../axios';
 import { Link } from 'react-router-dom';
 
+// styles
+import '../../shared/MediaContent.scss';
+
 export const Person = () => {
     const [readmore, setReadmore] = useState(false);
     const _window = useWindowSize();
@@ -21,9 +24,6 @@ export const Person = () => {
 
         return () => dispatch({ type: 'SET_PERSON_KNOWN_FOR', result: null });
     }, [person]);
-
-    console.log('Person', person);
-    console.log('Person known for ', person_known_for);
 
     return (
         <>
@@ -74,40 +74,46 @@ export const Person = () => {
             <section className='detailedPage_mediaInfo'>
                 <div className='detailedPage_mediaInfo_left'>
                     <h1>Known for</h1>
-                    <div className='detailedPage_mediaInfo_left_casts'>
+                    <div style={{ margin: '2rem 0' }}>
                         {person_known_for?.data?.cast
+                            ?.filter(
+                                (media) =>
+                                    formatDate(
+                                        'YYYY',
+                                        media?.first_air_date || media?.release_date
+                                    ) !== 'No date'
+                            )
                             ?.sort(
                                 (a, b) =>
                                     +formatDate('YYYY', b?.first_air_date || b?.release_date) -
                                     +formatDate('YYYY', a?.first_air_date || a?.release_date)
                             )
-                            ?.map((cast) => {
+                            ?.map((media) => {
                                 return (
                                     <Link
-                                        to={`/${cast?.media_type}/${cast?.id}`}
-                                        className='cast'
-                                        key={cast?.id}
+                                        to={`/${media?.media_type}/${media?.id}`}
+                                        className='media_content'
+                                        key={media?.id}
                                     >
                                         {baseImageUrl(
                                             'w300',
-                                            cast?.poster_path || cast?.backdrop_path,
-                                            cast?.name
+                                            media?.poster_path || media?.backdrop_path,
+                                            media?.name
                                         )}
-                                        <div className='castInfo'>
-                                            <h1>
-                                                {cast?.name ||
-                                                    cast?.original_name ||
-                                                    cast?.title ||
-                                                    cast?.original_title}
+                                        <div className='content'>
+                                            <h1 className='title'>
+                                                {media?.name ||
+                                                    media?.original_name ||
+                                                    media?.title ||
+                                                    media?.original_title}
                                             </h1>
-
-                                            <div>
+                                            <div className='release_date'>
                                                 {formatDate(
                                                     'YYYY',
-                                                    cast?.first_air_date || cast?.release_date
+                                                    media?.first_air_date || media?.release_date
                                                 )}
-                                                {cast?.episode_count &&
-                                                    ` | ${cast?.episode_count} episodes`}
+                                                {media?.episode_count &&
+                                                    ` | ${media?.episode_count} episodes`}
                                             </div>
                                         </div>
                                     </Link>

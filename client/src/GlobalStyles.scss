@@ -1,11 +1,11 @@
-@import './mixin.scss';
+@use './mixin.scss';
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    color: white;
+    color: #eee;
     font-size: 1rem;
     font-weight: 400;
     font-family: 'Manrope', sans-serif;
@@ -16,7 +16,7 @@
 body {
     min-height: 100vh;
     height: auto;
-    background-color: $black;
+    background-color: mixin.$black;
 }
 
 /* width */
@@ -26,12 +26,12 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    background: $black;
+    background: mixin.$black;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: $netflix-red;
+    background: mixin.$netflix-red;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -82,29 +82,11 @@ h6 {
     font-weight: 800;
 }
 
-.amazon_full_button {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    background-color: rgb(255, 192, 0);
-    margin: 1rem 0 0.5rem 0;
-    font-weight: 600;
-}
-
-.amazon_full_button_disabled {
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    background-color: #fbe0be;
-    margin: 1rem 0 0.5rem 0;
-    cursor: not-allowed;
-}
-
 .fadeElement {
     position: absolute;
     bottom: -5px;
     left: 0;
     width: 100%;
     height: 100px;
-    background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.61), $black);
+    background-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.61), mixin.$black);
 }

@@ -30,7 +30,6 @@ export const Search = ({ setSearchState }) => {
         return () => window.removeEventListener('keydown', captureEsc);
     }, []);
 
-    console.log('search results: ', search_query);
 
     return (
         <div className='searchResults'>

@@ -31,58 +31,59 @@ export const MediaCard = ({ media, media_type }) => {
               });
 
     return (
-        <div
-            className='mediacard'
-            onMouseOver={() => _window?.width > 500 && setMediaInfo(true)}
-            onMouseLeave={() => _window?.width > 500 && setMediaInfo(false)}
-        >
+        <div className='mediacard' onClick={() => _window?.width <= 1024 && setMediaInfo(true)}>
             {baseImageUrl(
                 'w500',
                 media?.poster_path || media?.backdrop_path || media?.profile_path,
                 media?.name
             )}
-            {media_info && (
-                <div className='mediacard_info'>
-                    <div className='media_container'>
-                        {baseImageUrl(
-                            'w500',
-                            media?.poster_path || media?.backdrop_path || media?.profile_path,
-                            media?.name
-                        )}
-                        <div className='content'>
-                            <h1 title={media?.name || media?.title}>
-                                {limit_char(media?.name || media?.title, 30)}
-                            </h1>
-                            <span>
-                                {formatDate('YYYY', media?.release_date || media?.first_air_date)}
-                            </span>
-                            <p title={media?.overview}>
-                                {limit_char(media?.overview, _window?.width < 1024 ? 200 : 100)}
-                            </p>
+
+            {media_info ||
+                (!media_info && _window?.width > 1024 && (
+                    <div className='mediacard_info'>
+                        <div className='media_container'>
+                            {baseImageUrl(
+                                'w500',
+                                media?.poster_path || media?.backdrop_path || media?.profile_path,
+                                media?.name
+                            )}
+                            <div className='content'>
+                                <h1 title={media?.name || media?.title}>
+                                    {limit_char(media?.name || media?.title, 30)}
+                                </h1>
+                                <span>
+                                    {formatDate(
+                                        'YYYY',
+                                        media?.release_date || media?.first_air_date
+                                    )}
+                                </span>
+                                <p title={media?.overview}>
+                                    {limit_char(media?.overview, _window?.width < 1024 ? 200 : 100)}
+                                </p>
+                            </div>
+                        </div>
+                        <div className='action_buttons'>
+                            <button onClick={() => update_watchlist()}>
+                                {exists_in_watchlist ? 'Remove from watchlist' : 'Add to watchlist'}
+                            </button>
+                            <button
+                                onClick={() =>
+                                    history.push(
+                                        `/${
+                                            media?.media_type
+                                                ? media?.media_type
+                                                : media_type
+                                                ? media_type
+                                                : 'movie'
+                                        }/${media?.id}`
+                                    )
+                                }
+                            >
+                                More info
+                            </button>
                         </div>
                     </div>
-                    <div className='action_buttons'>
-                        <button onClick={() => update_watchlist()}>
-                            {exists_in_watchlist ? 'Remove from watchlist' : 'Add to watchlist'}
-                        </button>
-                        <button
-                            onClick={() =>
-                                history.push(
-                                    `/${
-                                        media?.media_type
-                                            ? media?.media_type
-                                            : media_type
-                                            ? media_type
-                                            : 'movie'
-                                    }/${media?.id}`
-                                )
-                            }
-                        >
-                            More info
-                        </button>
-                    </div>
-                </div>
-            )}
+                ))}
         </div>
     );
 };

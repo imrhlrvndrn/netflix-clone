@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDataLayerValue } from './context/data.context';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-// scss files
+// styles
 import './GlobalStyles.scss';
 
-// React components
-import { Nav, SeasonDetails } from './components';
-import { Home, DetailedPage, Search } from './pages';
+// pages
+import { Home, MediaPage, Search } from './pages';
+
+// components
+import { Nav } from './components';
 
 const App = () => {
     const [searchState, setSearchState] = useState(false);
@@ -41,18 +43,7 @@ const App = () => {
                     exact
                     path='/:mediaType/:mediaId'
                     render={(props) => (
-                        <DetailedPage
-                            {...props}
-                            setSearchState={setSearchState}
-                            searchState={searchState}
-                        />
-                    )}
-                />
-                <Route
-                    exact
-                    path='/:mediaType/:mediaId/season/:seasonNumber'
-                    render={(props) => (
-                        <SeasonDetails
+                        <MediaPage
                             {...props}
                             setSearchState={setSearchState}
                             searchState={searchState}

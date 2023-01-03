@@ -1,13 +1,52 @@
 import React, { useState } from 'react';
 import requests from '../../requests';
 
-// React components
+// pages
 import { Search } from '../';
+
+// components
 import { Row, ErrorHandler, Banner } from '../../components';
 
 export const Home = ({ searchState, setSearchState }) => {
     const [error, setError] = useState('');
-
+    const media_rows = [
+        {
+            id: 1,
+            title: 'only on netflix',
+            fetch_url: requests?.fetchNetflixOriginals,
+            media_type: 'tv',
+        },
+        {
+            id: 2,
+            title: 'trending',
+            fetch_url: requests?.fetchTrending,
+        },
+        {
+            id: 3,
+            title: 'top rated',
+            fetch_url: requests?.fetchTopRated,
+        },
+        {
+            id: 4,
+            title: 'action movies',
+            fetch_url: requests?.fetchActionMovies,
+        },
+        {
+            id: 5,
+            title: 'comedy movies',
+            fetch_url: requests?.fetchComedyMovies,
+        },
+        {
+            id: 6,
+            title: 'horror movies',
+            fetch_url: requests?.fetchHorrorMovies,
+        },
+        {
+            id: 7,
+            title: 'documentaries',
+            fetch_url: requests?.fetchDocumentaries,
+        },
+    ];
     return (
         <>
             {searchState ? (
@@ -15,43 +54,14 @@ export const Home = ({ searchState, setSearchState }) => {
             ) : (
                 <>
                     <Banner />
-                    <Row
-                        setError={setError}
-                        title='Only on neflix'
-                        fetchUrl={requests.fetchNetflixOriginals}
-                        media_type='tv'
-                    />
-                    <Row
-                        setError={setError}
-                        title='Trending now'
-                        fetchUrl={requests.fetchTrending}
-                    />
-                    <Row setError={setError} title='Top rated' fetchUrl={requests.fetchTopRated} />
-                    <Row
-                        setError={setError}
-                        title='Action Movies'
-                        fetchUrl={requests.fetchActionMovies}
-                    />
-                    <Row
-                        setError={setError}
-                        title='Comedy Movies'
-                        fetchUrl={requests.fetchComedyMovies}
-                    />
-                    <Row
-                        setError={setError}
-                        title='Horror Movies'
-                        fetchUrl={requests.fetchHorrorMovies}
-                    />
-                    <Row
-                        setError={setError}
-                        title='Romance Movies'
-                        fetchUrl={requests.fetchRomanceMovies}
-                    />
-                    <Row
-                        setError={setError}
-                        title='Documentaries'
-                        fetchUrl={requests.fetchDocumentaries}
-                    />
+                    {media_rows?.map((row) => (
+                        <Row
+                            setError={setError}
+                            title={row?.title}
+                            fetchUrl={row?.fetch_url}
+                            media_type={row?.media_type}
+                        />
+                    ))}
                     {error && <ErrorHandler setError={setError} media_name={error} />}
                 </>
             )}

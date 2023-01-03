@@ -19,7 +19,6 @@ export const Row = ({ title, fetchUrl, setError, media_type }) => {
         (async () => await fetchData())();
     }, [fetchUrl]);
 
-    console.log(`${title} => `, results);
 
     return (
         <>

@@ -1,4 +1,4 @@
-@import '../../mixin.scss';
+@use '../../mixin.scss';
 
 .detailedPage {
     width: 100%;
@@ -19,10 +19,10 @@
         display: flex;
         align-items: flex-end;
         justify-content: center;
-        @include sm-tablet {
+        @include mixin.sm-tablet {
             background-size: cover !important;
         }
-        @include tablet {
+        @include mixin.tablet {
             padding: 0 6rem 2rem 6rem;
             height: 100vh;
         }
@@ -34,8 +34,8 @@
             z-index: 10;
             position: absolute;
             padding: 0 2rem;
-            @include tablet {
-                padding: 0 2rem;
+            @include mixin.tablet {
+                padding: 0;
                 margin-bottom: 3rem;
                 flex-direction: row;
                 position: relative;
@@ -46,7 +46,7 @@
 
             &_poster_image {
                 position: relative;
-                @include tablet {
+                @include mixin.tablet {
                     width: 300px;
                     height: 450px;
                     margin-right: 2rem;
@@ -62,10 +62,10 @@
                     font-weight: 600;
                     text-transform: uppercase;
                     letter-spacing: 5px;
-                    background-color: $netflix-red;
+                    background-color: mixin.$netflix-red;
                     color: white;
                     position: relative;
-                    @include tablet {
+                    @include mixin.tablet {
                         z-index: -1;
                         position: absolute;
                         bottom: 8px;
@@ -82,7 +82,7 @@
                 border-radius: 10px;
                 object-fit: contain;
                 display: none;
-                @include tablet {
+                @include mixin.tablet {
                     display: block;
                 }
             }
@@ -102,7 +102,7 @@
                     margin-bottom: 2rem;
                     flex-direction: column;
                     align-items: flex-start;
-                    @include sm-tablet {
+                    @include mixin.sm-tablet {
                         margin-bottom: 1rem;
                         flex-direction: row;
                         font-size: 2rem;
@@ -112,7 +112,7 @@
                         font-size: inherit;
                         opacity: 0.8;
                         margin: 0;
-                        @include tablet {
+                        @include mixin.tablet {
                             margin: 0 0 0 1rem;
                         }
                     }
@@ -129,14 +129,14 @@
                         &:hover {
                             transition: 0.4s ease-in-out;
                             background-color: white;
-                            color: $black;
+                            color: mixin.$black;
                         }
                     }
 
                     span.adult {
                         margin: 0 0 0 1rem;
                         padding: 0.5rem;
-                        background-color: $netflix-red;
+                        background-color: mixin.$netflix-red;
                         border-radius: 5px;
                     }
                 }
@@ -156,7 +156,7 @@
                         &:hover {
                             transition: 0.4s ease-in-out;
                             background-color: white;
-                            color: $black;
+                            color: mixin.$black;
                         }
                     }
                 }
@@ -165,7 +165,7 @@
                     overflow: auto;
                     max-height: 40vh;
                     width: 100%;
-                    @include sm-tablet {
+                    @include mixin.sm-tablet {
                         width: 70%;
                     }
 
@@ -203,7 +203,7 @@
 
                             p {
                                 margin: 0;
-                                color: $black;
+                                color: mixin.$black;
                             }
                         }
                     }
@@ -222,7 +222,7 @@
         display: flex;
         justify-content: flex-end;
         flex-direction: column-reverse;
-        @include tablet {
+        @include mixin.tablet {
             margin-bottom: 0;
             padding: 4rem 6rem;
             min-height: 100vh;
@@ -231,99 +231,20 @@
         }
 
         &_left {
-            width: 100%;
-            @include tablet {
-                margin-right: 1rem;
-                width: 70%;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-                margin-top: 2rem;
-            }
-
-            &_seasons,
-            &_casts {
-                width: 100%;
-                margin-top: 2rem;
-                display: flex;
-                align-items: center;
-                overflow-x: auto;
-
-                &::-webkit-scrollbar {
-                    display: none;
-                }
-
-                .season,
-                .cast {
-                    width: 200px;
-                    height: auto;
-                    position: relative;
-                    display: flex;
-                    margin: 0 2rem 2rem 0;
-                    flex-direction: column;
-                    transition: 1s ease-in-out;
-                    @include tablet {
-                        margin: 0 4rem 4rem 0;
-                    }
-
-                    img {
-                        margin-bottom: 1rem;
-                        border-radius: 10px;
-                        object-fit: cover;
-                        height: 200px;
-                        width: 150px;
-                        @include tablet {
-                            height: 250px;
-                            width: 200px;
-                        }
-                    }
-
-                    .seasonInfo,
-                    .castInfo {
-                        width: max-content;
-                        min-width: 150px;
-                        max-width: 150px;
-                        position: absolute;
-                        bottom: 0;
-                        left: 10%;
-                        padding: 1rem;
-                        border-radius: 10px;
-                        background-color: $netflix-red;
-                        transform: translate(0, 40%);
-                        @include tablet {
-                            padding: 1rem 2rem;
-                            min-width: 200px;
-                            max-width: 200px;
-                        }
-
-                        * {
-                            font-size: 0.8rem;
-                        }
-
-                        h1 {
-                            width: 80%;
-                            font-size: 1rem;
-                            margin: 0;
-                            @include tablet {
-                                font-size: 1.2rem;
-                            }
-                        }
-                    }
-                }
-            }
+            flex: 0.7;
         }
 
         &_right {
+            flex: 0.3;
             width: 100%;
             margin-bottom: 2rem;
-            @include tablet {
+            @include mixin.tablet {
                 margin-bottom: 0;
                 width: 30%;
             }
 
             .mediaStats {
-                background-color: $netflix-red;
+                background-color: mixin.$netflix-red;
                 width: 100%;
                 height: auto;
                 display: flex;
@@ -331,7 +252,7 @@
                 align-items: flex-start;
                 justify-content: flex-start;
                 padding: 2rem;
-                @include tablet {
+                @include mixin.tablet {
                     justify-content: space-between;
                 }
 
@@ -361,4 +282,9 @@
             }
         }
     }
+}
+
+
+.media_section{
+    padding: 4rem 6rem;
 }

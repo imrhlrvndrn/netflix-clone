@@ -11,16 +11,16 @@ const requests = {
     fetchDocumentaries: `/discover/movie?api_key=${api_key}&with_genres=99`,
 };
 
-export const getSeasonDetails = (mediaId, season_number) => {
-    return `tv/${mediaId}/season/${season_number}?api_key=${api_key}`;
+export const getSeasonDetails = (media_id, season_number) => {
+    return `tv/${media_id}/season/${season_number}?api_key=${api_key}`;
 };
 
 export const searchMedia = (query) => {
     return `search/multi?api_key=${api_key}&query=${query}&include_adult=false`;
 };
 
-export const getCast = (mediaType, mediaId) => {
-    return `${mediaType}/${mediaId}/credits?api_key=${api_key}`;
+export const getCast = (mediaType, media_id) => {
+    return `${mediaType}/${media_id}/credits?api_key=${api_key}`;
 };
 
 export const getLanguages = () => {

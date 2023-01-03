@@ -1,52 +1,27 @@
-import React, { useEffect } from 'react';
-import axios from '../../axios';
-import { useWindowSize } from '../../hooks';
-import { getCast } from '../../requests';
-import { baseImageUrl, baseImageUrlLink, calculateRuntime, formatDate } from '../../utils';
+import { useTabs, useWindowSize } from '../../hooks';
+import { formatDate } from '../../utils';
 import { useDataLayerValue } from '../../context/data.context';
-import { Link } from 'react-router-dom';
-import { MediaBanner } from '../MediaBanner/MediaBanner';
+
+// components
+import { CastMembers, MediaBanner, Tabs } from '../';
 
 export const Movie = ({ movie }) => {
-    const _window = useWindowSize();
-    const [{ media_cast }, dispatch] = useDataLayerValue();
-    console.log('Movie data: ', movie);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.get(getCast('movie', movie?.data?.id));
-
-            dispatch({ type: 'SET_CAST', result: response });
-        };
-
-        fetchData();
-    }, [movie]);
+    const media_tabs = [
+        {
+            title: 'Cast',
+            component: () => <CastMembers />,
+        },
+    ];
+    const [tabs, current_tab, switch_tab] = useTabs(media_tabs);
+    const TabComponent = current_tab?.component;
 
     return (
         <>
             <MediaBanner media={movie} />
             <section className='detailedPage_mediaInfo'>
                 <div className='detailedPage_mediaInfo_left'>
-                    <h1>Cast</h1>
-                    <div className='detailedPage_mediaInfo_left_casts'>
-                        {media_cast?.data?.cast?.map((cast) => {
-                            return (
-                                <Link to={`/person/${cast?.id}`} className='cast' key={cast?.id}>
-                                    {baseImageUrl(
-                                        'w200',
-                                        cast?.profile_path,
-                                        cast?.name || cast?.character
-                                    )}
-                                    <div className='castInfo'>
-                                        <h1>{cast?.name}</h1>
-                                        <div>
-                                            {cast?.character === null ? null : cast?.character}
-                                        </div>
-                                    </div>
-                                </Link>
-                            );
-                        })}
-                    </div>
+                    <Tabs tabs={tabs} switch_tab={switch_tab} />
+                    <TabComponent />
                 </div>
                 <div className='detailedPage_mediaInfo_right'>
                     <div className='mediaStats'>
