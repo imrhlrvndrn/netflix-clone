@@ -8,19 +8,19 @@ import { baseImageUrl, calculateRuntime, formatDate } from '../../utils';
 // styles
 import '../../shared/MediaContent.scss';
 
-export const Episodes = ({ show_id, season_number }) => {
-    const [{ season_details }, dispatch] = useDataLayerValue();
+export const Episodes = ({ show_id }) => {
+    const [{ season_details, current_season }, dispatch] = useDataLayerValue();
 
     useEffect(() => {
         const fetch_episodes = async () => {
-            const response = await axios.get(getSeasonDetails(show_id, season_number));
+            const response = await axios.get(getSeasonDetails(show_id, current_season));
             dispatch({ type: 'SET_SEASON_DETAILS', result: response });
         };
 
         (async () => await fetch_episodes())();
 
         return () => dispatch({ type: 'SET_SEASON_DETAILS', result: null });
-    }, [season_number]);
+    }, [current_season]);
 
     return (
         <div style={{ margin: '2rem 0' }}>

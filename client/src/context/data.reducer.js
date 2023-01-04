@@ -6,12 +6,12 @@ export const initialState = {
     media_cast: null,
     person_known_for: null,
     season_details: null,
+    current_season: 1,
     user: null,
     watchlist: [],
 };
 
 const reducer = (state, action) => {
-
     switch (action.type) {
         case 'SET_MOVIE':
             return { ...state, movie: action.result };
@@ -24,6 +24,9 @@ const reducer = (state, action) => {
 
         case 'SET_SEASON_DETAILS':
             return { ...state, season_details: action.result };
+
+        case 'SET_CURRENT_SEASON':
+            return { ...state, current_season: action.result };
 
         case 'SET_PERSON_KNOWN_FOR':
             return { ...state, person_known_for: action.result };

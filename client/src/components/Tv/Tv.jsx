@@ -1,31 +1,45 @@
-import { baseImageUrl, formatDate } from '../../utils';
+import { useEffect, useState } from 'react';
 import { useTabs } from '../../hooks';
+import { baseImageUrl, formatDate } from '../../utils';
 import { useDataLayerValue } from '../../context/data.context';
 
 // styles
 import '../../shared/MediaContent.scss';
 
 // components
-import { Episodes, MediaBanner, Tabs, CastMembers } from '../';
+import { Episodes, MediaBanner, Tabs, CastMembers, Dropdown } from '../';
 
 export const Tv = ({ tv }) => {
-    const [{ media_cast }, dispatch] = useDataLayerValue();
+    const [{ current_season }, dispatch] = useDataLayerValue();
     let queryValue =
         tv?.data?.name || tv?.data?.original_name || tv?.data?.title || tv?.data?.original_title;
     let query = queryValue?.toLowerCase().split(' ').join('+');
 
-    const media_tabs = [
+    const [media_tabs, setMediaTabs] = useState([
         {
             title: 'Episodes',
-            component: () => <Episodes show_id={tv?.data?.id} season_number={1} />,
+            component: () => <Episodes show_id={tv?.data?.id} />,
         },
         {
             title: 'Cast',
             component: () => <CastMembers />,
         },
-    ];
+    ]);
     const [tabs, current_tab, switch_tab] = useTabs(media_tabs);
     const TabComponent = current_tab?.component;
+
+    const generateDropdownMenu = (limit) => {
+        let menu = [];
+        for (let i = 1; i <= limit; i++) {
+            menu.push({ content: `Season ${i}` });
+        }
+
+        return menu;
+    };
+
+    useEffect(() => {
+        return () => dispatch({ type: 'SET_CURRENT_SEASON', result: 1 });
+    }, []);
 
     return (
         <>
@@ -33,7 +47,17 @@ export const Tv = ({ tv }) => {
 
             <section className='detailedPage_mediaInfo'>
                 <div className='detailedPage_mediaInfo_left'>
-                    <Tabs tabs={tabs} switch_tab={switch_tab} />
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            padding: '0 1rem 0 0',
+                        }}
+                    >
+                        <Tabs tabs={tabs} switch_tab={switch_tab} />
+                        <Dropdown menu={generateDropdownMenu(tv?.data?.number_of_seasons)} />
+                    </div>
                     <TabComponent />
                 </div>
                 <div className='detailedPage_mediaInfo_right'>

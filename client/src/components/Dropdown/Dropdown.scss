@@ -1,0 +1,45 @@
+@use '../../mixin.scss';
+
+.dropdown{
+    cursor: pointer;
+    border-radius: 5px;
+    position: relative;
+    padding: 0.8rem 2rem;
+    filter: brightness(1.8);
+    background-color: mixin.$black;
+    z-index: 3;
+    
+    &_menu{
+        width: 200px;
+        height: max-content;
+        position: absolute;
+        top: calc(100% + 0.2rem);
+        right: 0;
+        padding: 0.5rem;
+        border-radius: 5px;
+        background-color: mixin.$black;
+        transition: 0.4s all ease-in-out;
+        
+        .menu_item{
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.2rem;
+            border: 2px solid transparent;
+            background-color: mixin.$black;
+            transition: 0.4s all ease-in-out;
+
+            &.active{
+                filter: brightness(0.8);
+                
+                &:hover{
+                    filter: brightness(0.8);
+                }
+            }
+            
+            &:hover{
+                filter: brightness(1.2);
+            }
+        }
+
+    }
+}

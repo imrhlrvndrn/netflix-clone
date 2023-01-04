@@ -10,3 +10,4 @@ export { MediaCard } from './MediaCard/MediaCard';
 export { Episodes } from './Episodes/Episodes';
 export { Tabs } from './Tabs/Tabs';
 export { CastMembers } from './CastMembers/CastMembers';
+export { Dropdown, DropdownMenu } from './Dropdown/Dropdown';
