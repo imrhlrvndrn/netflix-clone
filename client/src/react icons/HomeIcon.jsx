@@ -1,12 +1,12 @@
 import React from 'react';
 
-const HomeIcon = ({ width, height, className }) => {
+export const HomeIcon = ({ size = 24, className = '' }) => {
     return (
         <svg
             viewBox='0 0 512 512'
-            width={width ? width : '24'}
-            height={height ? height : '24'}
-            className={className && className}
+            width={size}
+            height={size}
+            className={className}
             xmlns='http://www.w3.org/2000/svg'
         >
             <path
@@ -16,5 +16,3 @@ const HomeIcon = ({ width, height, className }) => {
         </svg>
     );
 };
-
-export default HomeIcon;

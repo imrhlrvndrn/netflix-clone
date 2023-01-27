@@ -9,6 +9,9 @@ import { useWindowSize } from '../../hooks';
 // scss files
 import './Search.scss';
 
+// components
+import { MediaCard } from '../../components';
+
 export const Search = ({ setSearchState }) => {
     const [{ search_query }, dispatch] = useDataLayerValue();
     const [searchQuery, setSearchQuery] = useState('');
@@ -30,7 +33,6 @@ export const Search = ({ setSearchState }) => {
         return () => window.removeEventListener('keydown', captureEsc);
     }, []);
 
-
     return (
         <div className='searchResults'>
             {_window?.width <= 1024 && (
@@ -47,21 +49,11 @@ export const Search = ({ setSearchState }) => {
             )}
             <div className='searchResults_container'>
                 {search_query?.data?.results?.map((result) => (
-                    <Link
-                        key={result.id}
-                        className='searchResults_container_image'
-                        onClick={() => setSearchState(false)}
-                        to={`/${result?.media_type ? result?.media_type : 'movie'}/${result.id}`}
-                    >
-                        {baseImageUrl(
-                            'w300',
-                            result?.poster_path || result?.backdrop_path || result?.profile_path,
-                            result?.name ||
-                                result?.original_name ||
-                                result?.title ||
-                                result?.original_title
-                        )}
-                    </Link>
+                    <MediaCard
+                        key={result?.id}
+                        media={result}
+                        media_type={result?.media_type ? result?.media_type : 'movie'}
+                    />
                 ))}
             </div>
         </div>

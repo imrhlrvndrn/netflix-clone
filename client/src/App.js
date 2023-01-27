@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './GlobalStyles.scss';
 
 // pages
-import { Home, MediaPage, Search } from './pages';
+import { Home, MediaPage, Search, Watchlist } from './pages';
 
 // components
 import { Nav } from './components';
@@ -44,6 +44,17 @@ const App = () => {
                     path='/:mediaType/:mediaId'
                     render={(props) => (
                         <MediaPage
+                            {...props}
+                            setSearchState={setSearchState}
+                            searchState={searchState}
+                        />
+                    )}
+                />
+                <Route
+                    exact
+                    path='/watchlist'
+                    render={(props) => (
+                        <Watchlist
                             {...props}
                             setSearchState={setSearchState}
                             searchState={searchState}

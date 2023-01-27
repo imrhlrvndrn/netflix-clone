@@ -38,35 +38,45 @@ const reducer = (state, action) => {
             return { ...state, media_cast: action.result };
 
         case 'SET_WATCHLIST': {
-            return { ...state, watchlist: JSON.parse(localStorage.getItem('watchlist')) || [] };
+            const remove_duplicates = (input_array) =>
+                input_array?.reduce(
+                    (acc, cur, index) => {
+                        console.log(`watchlist cur ${index} => `, { acc, cur });
+                        if (!acc?.map[cur?.id])
+                            return {
+                                map: { ...acc?.map, [cur?.id]: 1 },
+                                result: [...acc?.result, cur],
+                            };
+                        else return acc;
+                    },
+                    { map: {}, result: [] }
+                );
+            return {
+                ...state,
+                watchlist: JSON.parse(localStorage.getItem('watchlist')),
+            };
         }
 
         case 'UPDATE_WATCHLIST': {
             let watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
-            switch (action?.operation) {
-                case 'ADD_TO_WATCHLIST': {
+            if (action?.operation === 'ADD_TO_WATCHLIST') {
+                if (watchlist?.findIndex((media) => media?.id === action?.media?.id) === -1)
                     watchlist = [...watchlist, action?.media];
-                    localStorage.setItem('watchlist', JSON.stringify(watchlist));
+                localStorage.setItem('watchlist', JSON.stringify(watchlist));
 
-                    return {
-                        ...state,
-                        watchlist,
-                    };
-                }
+                return {
+                    ...state,
+                    watchlist,
+                };
+            } else if (action?.operation === 'REMOVE_FROM_WATCHLIST') {
+                watchlist = watchlist?.filter((media) => media?.id !== action?.media_id);
+                localStorage.setItem('watchlist', JSON.stringify(watchlist));
 
-                case 'REMOVE_FROM_WATCHLIST': {
-                    watchlist = watchlist.filter((media) => media?.id !== action?.media_id);
-                    localStorage.setItem('watchlist', JSON.stringify(watchlist));
-
-                    return {
-                        ...state,
-                        watchlist,
-                    };
-                }
-
-                default:
-                    return state;
-            }
+                return {
+                    ...state,
+                    watchlist,
+                };
+            } else return state;
         }
 
         default:

@@ -1,34 +1,20 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDataLayerValue } from '../../context/data.context';
+import { Link } from 'react-router-dom';
 import { useWindowSize } from '../../hooks';
-import { baseImageUrl, formatDate, limit_char } from '../../utils';
+import { useDataLayerValue } from '../../context/data.context';
+import { baseImageUrl, formatDate, limit_char, update_watchlist } from '../../utils';
 
 // styles
 import './MediaCard.scss';
 
 export const MediaCard = ({ media, media_type }) => {
     const _window = useWindowSize();
-    const history = useHistory();
     const [media_info, setMediaInfo] = useState(false);
     const [{ watchlist }, dispatch] = useDataLayerValue();
     const exists_in_watchlist =
         watchlist?.filter((watchlist_media) => watchlist_media?.id === media?.id)?.length > 0
             ? true
             : false;
-
-    const update_watchlist = () =>
-        exists_in_watchlist
-            ? dispatch({
-                  type: 'UPDATE_WATCHLIST',
-                  operation: 'REMOVE_FROM_WATCHLIST',
-                  media_id: media?.id,
-              })
-            : dispatch({
-                  type: 'UPDATE_WATCHLIST',
-                  operation: 'ADD_TO_WATCHLIST',
-                  media: { ...media, media_type: media?.media_type || media_type || 'movie' },
-              });
 
     return (
         <div className='mediacard' onClick={() => _window?.width <= 1024 && setMediaInfo(true)}>
@@ -63,24 +49,25 @@ export const MediaCard = ({ media, media_type }) => {
                             </div>
                         </div>
                         <div className='action_buttons'>
-                            <button onClick={() => update_watchlist()}>
-                                {exists_in_watchlist ? 'Remove from watchlist' : 'Add to watchlist'}
-                            </button>
                             <button
                                 onClick={() =>
-                                    history.push(
-                                        `/${
-                                            media?.media_type
-                                                ? media?.media_type
-                                                : media_type
-                                                ? media_type
-                                                : 'movie'
-                                        }/${media?.id}`
-                                    )
+                                    update_watchlist.bind({ dispatch })(exists_in_watchlist, media)
                                 }
                             >
-                                More info
+                                {exists_in_watchlist ? 'Remove from watchlist' : 'Add to watchlist'}
                             </button>
+                            <Link
+                                to={`/${
+                                    media?.media_type
+                                        ? media?.media_type
+                                        : media_type
+                                        ? media_type
+                                        : 'movie'
+                                }/${media?.id}`}
+                                target='_blank'
+                            >
+                                More info
+                            </Link>
                         </div>
                     </div>
                 ))}

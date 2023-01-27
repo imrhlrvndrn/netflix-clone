@@ -1,14 +1,22 @@
 import { useWindowSize } from '../../hooks';
-import { baseImageUrlLink, baseImageUrl, formatDate, calculateRuntime } from '../../utils';
+import { useDataLayerValue } from '../../context/data.context';
+import { baseImageUrlLink, baseImageUrl, calculateRuntime, update_watchlist } from '../../utils';
+
+import { TickIcon } from '../../react icons';
 
 export const MediaBanner = ({ media }) => {
     const _window = useWindowSize();
+    const [{ watchlist }, dispatch] = useDataLayerValue();
+    const exists_in_watchlist =
+        watchlist?.filter((mediaItem) => mediaItem?.id === media?.data?.id)?.length > 0
+            ? true
+            : false;
     let queryValue =
         media?.data?.name ||
         media?.data?.original_name ||
         media?.data?.title ||
         media?.data?.original_title;
-    let query = queryValue?.toLowerCase().split(' ').join('+');
+    let query = queryValue?.toLowerCase()?.split(' ')?.join('+');
 
     return (
         <div
@@ -43,8 +51,6 @@ export const MediaBanner = ({ media }) => {
                 <div className='detailedPage_banner_content_details'>
                     <h1>
                         {queryValue}
-                        {/* {media?.data?.release_date !== '' &&
-                            ` (${formatDate('YYYY', media?.data?.release_date)})`} */}
                         {_window?.width > 768 &&
                             calculateRuntime(
                                 media?.data?.runtime ||
@@ -55,9 +61,16 @@ export const MediaBanner = ({ media }) => {
                     </h1>
                     <div className='genre_container'>
                         {media?.data?.genres?.map((genre) => (
-                            <p className='genre'>{genre.name}</p>
+                            <p className='genre'>{genre?.name}</p>
                         ))}
                     </div>
+                    <button
+                        onClick={() =>
+                            update_watchlist.bind({ dispatch })(exists_in_watchlist, media?.data)
+                        }
+                    >
+                        {exists_in_watchlist ? <TickIcon fill='black' /> : '+'}
+                    </button>
                     <p className='overview_text'>{media?.data?.overview}</p>
                     {_window?.width > 1024 && media?.data?.production_companies.length > 1 && (
                         <div className='creators'>

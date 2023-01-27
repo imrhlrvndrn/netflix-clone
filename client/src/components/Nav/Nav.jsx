@@ -10,9 +10,7 @@ import './Nav.scss';
 
 // images
 import NetflixLogo from './NetflixLogo';
-import HomeIcon from '../../react icons/HomeIcon';
-import SearchIcon from '../../react icons/SearchIcon';
-import LibraryIcon from '../../react icons/LibraryIcon';
+import { HomeIcon, SearchIcon, LibraryIcon } from '../../react icons';
 
 export const Nav = ({ setSearchState }) => {
     const [_, dispatch] = useDataLayerValue();

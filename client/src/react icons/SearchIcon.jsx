@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchIcon = ({ width, height, className }) => {
+export const SearchIcon = ({ width, height, className }) => {
     return (
         <svg
             viewBox='0 0 512 512'
@@ -17,5 +17,3 @@ const SearchIcon = ({ width, height, className }) => {
         </svg>
     );
 };
-
-export default SearchIcon;

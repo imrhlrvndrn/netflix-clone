@@ -58,3 +58,20 @@ export const calculateRuntime = (runtime) => {
 export const calculateAge = (birthYear) => {
     return new Date().getFullYear() - +birthYear;
 };
+
+export function update_watchlist(exists_in_watchlist, media) {
+    exists_in_watchlist
+        ? this.dispatch({
+              type: 'UPDATE_WATCHLIST',
+              operation: 'REMOVE_FROM_WATCHLIST',
+              media_id: media?.id,
+          })
+        : this.dispatch({
+              type: 'UPDATE_WATCHLIST',
+              operation: 'ADD_TO_WATCHLIST',
+              media: {
+                  ...media,
+                  media_type: media?.media_type || 'movie',
+              },
+          });
+}

@@ -43,6 +43,11 @@ export const Home = ({ searchState, setSearchState }) => {
         },
         {
             id: 7,
+            title: 'romance movies',
+            fetch_url: requests?.fetchRomanceMovies,
+        },
+        {
+            id: 8,
             title: 'documentaries',
             fetch_url: requests?.fetchDocumentaries,
         },

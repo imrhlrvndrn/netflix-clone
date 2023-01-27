@@ -125,12 +125,6 @@
                         width: max-content;
                         padding: 0.5rem 2rem;
                         background-color: rgba(0, 0, 0, 0.4);
-                        
-                        &:hover {
-                            transition: 0.4s ease-in-out;
-                            background-color: white;
-                            color: mixin.$black;
-                        }
                     }
 
                     span.adult {
@@ -138,6 +132,23 @@
                         padding: 0.5rem;
                         background-color: mixin.$netflix-red;
                         border-radius: 5px;
+                    }
+                }
+
+                button {
+                    font-size: 2rem;
+                    padding: 0;
+                    background-color: white;
+                    color: mixin.$black;
+                    width: 60px;
+                    height: 60px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 50%;
+
+                    svg {
+                        margin: 0;
                     }
                 }
 
@@ -150,14 +161,10 @@
                         text-transform: uppercase;
                         padding: 0.5rem 2rem;
                         border-radius: 5px;
-                        background-color: rgba(0, 0, 0, 0.4);
-                        color: white;
+                        background-color: white;
+                        color: mixin.$black;
                         margin-right: 1rem;
-                        &:hover {
-                            transition: 0.4s ease-in-out;
-                            background-color: white;
-                            color: mixin.$black;
-                        }
+                        opacity: 0.9;
                     }
                 }
 
@@ -284,7 +291,6 @@
     }
 }
 
-
-.media_section{
+.media_section {
     padding: 4rem 6rem;
 }

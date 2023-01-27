@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LibraryIcon = ({ width, height, className }) => {
+export const LibraryIcon = ({ width, height, className }) => {
     return (
         <svg
             viewBox='0 0 512 512'
@@ -16,5 +16,3 @@ const LibraryIcon = ({ width, height, className }) => {
         </svg>
     );
 };
-
-export default LibraryIcon;

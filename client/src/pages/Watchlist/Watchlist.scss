@@ -1,0 +1,22 @@
+@use '../../mixin.scss';
+
+.watchlist_container {
+    padding: calc(80px + 2rem) 2rem 4rem 2rem;
+    height: max-content;
+
+    .watchlist_title {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        @include mixin.tablet{
+            font-size: 2rem;
+        }
+    }
+    
+    img{
+        object-fit: contain;
+        object-position: center center;
+        @include mixin.tablet{
+            object-fit: cover;
+        }
+    }
+}
