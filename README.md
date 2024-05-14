@@ -1,4 +1,4 @@
-# Netflix Clone
+# OTT Platform
 
 ![Netflix clone project preview](./client/public/netflix_banner.png)
 
