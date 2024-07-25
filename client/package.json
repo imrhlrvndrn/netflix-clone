@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "cra-template": "1.1.0",
+    "selenium-webdriver": "4.17.0",
     "gsap": "^3.5.1",
     "moment": "^2.29.1",
     "react": "^17.0.1",
@@ -16,7 +17,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "mocha",
+    "test:awesome": "mocha --reporter mochawesome || true",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

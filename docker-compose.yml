@@ -1,0 +1,7 @@
+version: '3.3'
+
+services:
+  node-js:
+   image: uditdevadiga/netflixclone:latest
+   ports:
+     - "1111:1111"
